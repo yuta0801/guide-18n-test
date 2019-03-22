@@ -23,7 +23,7 @@ const config = {
 			apiKey: 'c8d9361fb8403f7c5111887e0edf4b5e',
 			indexName: 'discordjs',
 		},
-		repo: 'DJS-JPN/guide',
+		repo: 'discordjs-japan/guide',
 		docsDir: 'guide',
 		sidebarDepth: 3,
 		editLinks: true,
