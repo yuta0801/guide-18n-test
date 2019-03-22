@@ -4,6 +4,7 @@ const config = {
 	title: 'Discord.js ガイド',
 	description: 'discord.jsのコミュニティによって作られたユーザーガイドを日本語に翻訳したサイト',
 	head: [
+		['link', { rel: 'icon', href: '/favicon.png' }],
 		['meta', { name: 'theme-color', content: '#42b983' }],
 		['meta', { name: 'twitter:card', content: 'summary' }],
 		['meta', { name: 'og:title', content: 'Discord.js ガイド' }],
@@ -17,6 +18,10 @@ const config = {
 	themeConfig: {
 		yuu: {
 			colorThemes: ['blue', 'red'],
+		},
+		algolia: {
+			apiKey: 'c8d9361fb8403f7c5111887e0edf4b5e',
+			indexName: 'discordjs',
 		},
 		repo: 'DJS-JPN/guide',
 		docsDir: 'guide',

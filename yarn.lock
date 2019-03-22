@@ -2561,11 +2561,11 @@ eslint-plugin-markdown@^1.0.0:
     remark-parse "^5.0.0"
     unified "^6.1.2"
 
-eslint-plugin-vue@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-5.1.0.tgz#d0d373334be8140d698ec4e1fb83f09faa48081b"
+eslint-plugin-vue@^5.2.2:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-5.2.2.tgz#86601823b7721b70bc92d54f1728cfc03b36283c"
   dependencies:
-    vue-eslint-parser "^4.0.2"
+    vue-eslint-parser "^5.0.0"
 
 eslint-scope@3.7.1:
   version "3.7.1"
@@ -6740,15 +6740,15 @@ vue-click-outside@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/vue-click-outside/-/vue-click-outside-1.0.7.tgz#cdd2b1605e3c4944784e1794eae4a12a0f700bd6"
 
-vue-discord-message@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/vue-discord-message/-/vue-discord-message-2.0.0.tgz#80218b41c5a22aea48308681605155d22be21729"
+vue-discord-message@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/vue-discord-message/-/vue-discord-message-3.0.0.tgz#04d7685b1835c0fdf20fe7e085271144f69837e0"
   dependencies:
     hex-to-rgba "^1.0.1"
 
-vue-eslint-parser@^4.0.2:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-4.0.3.tgz#80cf162e484387b2640371ad21ba1f86e0c10a61"
+vue-eslint-parser@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-5.0.0.tgz#00f4e4da94ec974b821a26ff0ed0f7a78402b8a1"
   dependencies:
     debug "^4.1.0"
     eslint-scope "^4.0.0"
@@ -6828,9 +6828,9 @@ vuepress-theme-yuu@^1.0.0:
   dependencies:
     vue-click-outside "^1.0.7"
 
-vuepress@^0.14.4:
-  version "0.14.8"
-  resolved "https://registry.yarnpkg.com/vuepress/-/vuepress-0.14.8.tgz#1e0a70a64c19e82e365eb7313b1ec88cc4ad7ab3"
+vuepress@^0.14.10:
+  version "0.14.10"
+  resolved "https://registry.yarnpkg.com/vuepress/-/vuepress-0.14.10.tgz#070281ad0c9d48e7c848eb9511c96ceb106414ab"
   dependencies:
     "@babel/core" "7.0.0-beta.47"
     "@vue/babel-preset-app" "3.0.0-beta.11"

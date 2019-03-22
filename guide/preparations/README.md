@@ -199,12 +199,18 @@ To install discord.js, simply run the `npm install discord.js`. This can take a 
 discord.jsをインストールするには、単に`npm install discord.js`と実行します。これには少し時間がかかりますが、すぐに終わるでしょう。
 
 <!--
-<p class="warning">Once the installation is complete, you'll see something like this:<br/>
-![npm warnings](~@/images/BbcuyJ6.png)<br/>**This is perfectly normal and means that it worked.** You don't need to install any of the items listed in order to use discord.js; they are 100% optional.</p>
+::: warning
+Once the installation is complete, you'll see something like this:
+![npm warnings](~@/images/BbcuyJ6.png)<br/>
+**This is perfectly normal and means that it worked.** You don't need to install any of the items listed in order to use discord.js; they are 100% optional.
+:::
 -->
 
-<p class="warning">インストールが完了すると、次のようになります。<br/>
-![npm warnings](~@/images/BbcuyJ6.png)<br/>**これは完全に正常であり、それが動作したことを意味します。**discord.jsを使用するために表示されている項目をインストールする必要はありません。それらは100％オプションです。</p>
+::: warning
+インストールが完了すると、次のようになります。
+![npm warnings](~@/images/BbcuyJ6.png)<br/>
+**これは完全に正常であり、それが動作したことを意味します。**discord.jsを使用するために表示されている項目をインストールする必要はありません。それらは100％オプションです。
+:::
 
 <!--
 And that's it! With all the necessities installed, you're almost ready to start coding your bot.
