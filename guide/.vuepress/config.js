@@ -19,10 +19,6 @@ const config = {
 		yuu: {
 			colorThemes: ['blue', 'red'],
 		},
-		algolia: {
-			apiKey: 'c8d9361fb8403f7c5111887e0edf4b5e',
-			indexName: 'discordjs',
-		},
 		repo: 'discordjs-japan/guide',
 		docsDir: 'guide',
 		sidebarDepth: 3,
@@ -36,6 +32,10 @@ const config = {
 			{
 				text: 'Commando',
 				link: '/commando/',
+			},
+			{
+				text: 'Discord.js Documentation',
+				link: 'https://discord.js.org/#/docs/main/stable/general/welcome',
 			},
 		],
 		sidebar,
@@ -54,6 +54,13 @@ for (const group of Object.values(config.themeConfig.sidebar)) {
 		if (section.collapsable) continue;
 		section.collapsable = false;
 	}
+}
+
+if (process.env.NODE_ENV === 'production') {
+	config.themeConfig.algolia = {
+		apiKey: 'c8d9361fb8403f7c5111887e0edf4b5e',
+		indexName: 'discordjs',
+	};
 }
 
 module.exports = config;

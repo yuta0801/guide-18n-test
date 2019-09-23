@@ -93,7 +93,7 @@ Like any other project, you should have a dedicated folder for this, in order to
 他のプロジェクトと同様に、整理して管理しやすくするために、このための専用フォルダを用意する必要があります。
 
 <!--
-Navigate to a place on your machine where it's be easy for find and open in the future, for convenience purposes. Create a new folder like you normally would (for Linux, you can use `mkdir project-name` inside your terminal). If you already have a name you want to use for your bot, you can use that as the folder name. Otherwise, you may name it something like `discord-bot` for the time being \(or anything else you have in mind\).
+Navigate to a place on your machine that's easy to find and reopen in the future, for convenience purposes. Create a new folder like you normally would (for Linux, you can use `mkdir project-name` inside your terminal). If you already have a name you want to use for your bot, you can use that as the folder name. Otherwise, you may name it something like `discord-bot` for the time being \(or anything else you have in mind\).
 -->
 
 利便性のために、パソコン上の簡単に開くことができる場所に移動します。通常どおりに新しいフォルダを作成します（Linuxの場合は、ターミナル内で `mkdir プロジェクト名`を使用できます）。ボットに使用したい名前がすでにある場合は、フォルダ名としてそれを使用することができます。そうでなければ、当面の間は `discord-bot`のような名前を付けても構いません（あるいは他に何か考えているもの）。

@@ -9,7 +9,7 @@ title: はじめに
 # はじめに
 
 <!--
-If you're reading this, it probably means you want to learn how make a bot with discord.js. Awesome! You've come to the right place.
+If you're reading this, it probably means you want to learn how to make a bot with discord.js. Awesome! You've come to the right place.
 -->
 
 このページを読んでいるということは、おそらくdiscord.jsでボットを作成する方法を学びたいということなのでしょう。すばらしい！あなたは正しい場所に来ました。

@@ -126,7 +126,7 @@ ESLintを使い始めるとコードに対するエラーや警告がたくさ�
 		"es6": true
 	},
 	"parserOptions": {
-		"ecmaVersion": 2017
+		"ecmaVersion": 2019
 	},
 	"rules": {
 
@@ -160,7 +160,7 @@ Alternatively, if you don't want to go through everything one-by-one on your own
 		"es6": true
 	},
 	"parserOptions": {
-		"ecmaVersion": 2017
+		"ecmaVersion": 2019
 	},
 	"rules": {
 		"brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
