@@ -27,14 +27,14 @@ First, you will need a proper code editor. Using Notepad and Notepad++ is discou
 はじめに、適切なコードエディタを用意しましょう。メモ帳やNotepad++は、このようなプロジェクトには向いていないのでおすすめしません。これらのエディタを利用すると多くの頭痛や構文エラーが発生します、良いエディタに切り替えることでみんなが救われるでしょう。
 
 <!--
-* [Visual Studio Code](https://code.visualstudio.com/) is a very popular choice known for being fast and powerful. It supports a broad range of languages and comes with its own terminal, as well as built-in intellisense and autocomplete for both JavaScript and TypeScript. This is the recommended choice.
-* [Atom](https://atom.io/) is user-friendly, being concise and easy to navigate. This is what many developers use to get started.
-* [Sublime Text](https://www.sublimetext.com/) is another powerful editor known for looking sleek and performing speedily and efficiently.
+* [Visual Studio Code](https://code.visualstudio.com/) is a very popular choice; it is known for being fast and powerful. It supports a large variety of languages, has its own terminal, built-in IntelliSense support, and autocomplete for both JavaScript and TypeScript. This is the recommended choice.
+* [Atom](https://atom.io/) is user-friendly, concise and easy to navigate. This is what many developers use to get started.
+* [Sublime Text](https://www.sublimetext.com/) is another popular editor that's easy to use and write code with.
 -->
 
-* [Visual Studio Code](https://code.visualstudio.com/) 高速で高性能であるため非常に人気な選択肢です。これは広範囲の言語をサポートし独自のターミナルが付属しています、JavaScriptやTypeScriptのためのインテリセンスや自動補完も備わっています。これは、おすすめの選択です。
+* [Visual Studio Code](https://code.visualstudio.com/) 高速で高性能であるため非常に人気のある選択肢です。多種多様な言語をサポートし、独自のターミナルが付属していて、JavaScriptやTypeScriptのためのインテリセンスや自動補完も備わっています。おすすめの選択肢です。
 * [Atom](https://atom.io/) 簡単で扱いやすく、ユーザーフレンドリーです。多くの開発者が始めに使用します。
-* [Sublime Text](https://www.sublimetext.com/) 洗練された外観でスピーディーかつ効率的に実行できることで知られてるもう一つの強力なエディタです。
+* [Sublime Text](https://www.sublimetext.com/) もう一つの人気なエディタで、簡単にコードを書くことができます。
 
 <!--
 ## Installing a linter

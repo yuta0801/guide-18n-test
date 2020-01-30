@@ -28,15 +28,15 @@ It's incredibly easy to create one. The steps you need to take are as follows:
 
 <!--
 1. Open up [the Discord website](https://discordapp.com/) and [login](https://discordapp.com/login).
-2. Hover over the "Developers" drop-down menu and click on the [Developer Portal](https://discordapp.com/developers/docs/intro) link.
-3. On the header click on the [Applications](https://discordapp.com/developers/applications) link.
-4. Click on the "Create an application" button.
+2. Hover over the "Developers" drop-down menu and click on the [Developer Portal](https://discordapp.com/developers/applications/) link.
+3. Click on the "New Application" button.
+4. Enter a name and optionally select a team (if you want the bot to belong to one). Then confirm the pop-up window by clicking the "Create" button.
 -->
 
 1. [Discord公式サイト](https://discordapp.com/)を開いて[ログイン](https://discordapp.com/login)。
-2. ページ上部の"デベロッパー向け"にカーソルを合わせ[開発者ポータル](https://discordapp.com/developers/docs/intro)をクリック。
-3. ヘッダーの[Applications](https://discordapp.com/developers/applications)をクリック。
-4. "Create an application"をクリック。
+2. ページ上部の"デベロッパー向け"にカーソルを合わせ[開発者ポータル](https://discordapp.com/developers/applications/)をクリック。
+3. [New Application](https://discordapp.com/developers/applications)ボタンをクリック。
+4. ボット名を入力し、ボットを所属させたい場合はチームを選択。そして"Create"ボタンをクリック。
 
 <!--
 You should see a page like this:

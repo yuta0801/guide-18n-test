@@ -75,13 +75,17 @@ module.exports = {
 			title: 'Popular Topics',
 			children: [
 				'/popular-topics/embeds',
+				'/popular-topics/errors',
 				'/popular-topics/permissions',
 				'/popular-topics/permissions-extended',
 				'/popular-topics/reactions',
 				'/popular-topics/collectors',
+				'/popular-topics/partials',
 				'/popular-topics/canvas',
 				'/popular-topics/common-questions',
 				'/popular-topics/miscellaneous-examples',
+				'/popular-topics/webhooks',
+				'/popular-topics/audit-logs',
 			],
 		},
 		{
@@ -114,6 +118,17 @@ module.exports = {
 			],
 		},
 		{
+			title: 'Voice',
+			children: [
+				'/voice/',
+				'/voice/understanding-voice',
+				'/voice/the-basics',
+				'/voice/voice-broadcasts',
+				'/voice/optimisation-and-troubleshooting',
+				'/voice/receiving-audio',
+			],
+		},
+		{
 			title: 'Improving Your Dev Environment',
 			children: [
 				'/improving-dev-environment/pm2',
@@ -128,6 +143,7 @@ module.exports = {
 				'/additional-info/collections',
 				'/additional-info/async-await',
 				'/additional-info/rest-api',
+				'/additional-info/changes-in-v12',
 			],
 		},
 	],

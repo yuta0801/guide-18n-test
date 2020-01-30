@@ -17,7 +17,7 @@ npm install --save ytdl-core
 If you get an error that says 'OPUS_ENGINE_MISSING', you'll need to install one of the opus packages discord.js recommends.
 
 ```
-npm install --save node-opus
+npm install --save @discordjs/opus
 ```
 
 If you get an error that says 'FFMPEG not found', this can be resolved by installing ffmpeg.
@@ -31,10 +31,12 @@ sudo apt-get install ffmpeg
 On Windows:
 
 ```
-npm install ffmpeg-binaries --save
+npm install ffmpeg-static --save
 ```
 
 Additionally, there have been reports that playing audio in this way from the Ubuntu subsystem offered by Windows 10 does not work.
+
+<branch version="11.x">
 
 ```js
 const Discord = require('discord.js');
@@ -63,6 +65,39 @@ client.on('message', message => {
 
 client.login('your-token-goes-here');
 ```
+
+</branch>
+<branch version="12.x">
+
+```js
+const Discord = require('discord.js');
+const ytdl = require('ytdl-core');
+
+const client = new Discord.Client();
+
+client.on('message', message => {
+	if (message.content === '!play') {
+		if (message.channel.type !== 'text') return;
+
+		const voiceChannel = message.member.voice.channel;
+
+		if (!voiceChannel) {
+			return message.reply('please join a voice channel first!');
+		}
+
+		voiceChannel.join().then(connection => {
+			const stream = ytdl('https://www.youtube.com/watch?v=D57Y1PruTlw', { filter: 'audioonly' });
+			const dispatcher = connection.play(stream);
+
+			dispatcher.on('end', () => voiceChannel.leave());
+		});
+	}
+});
+
+client.login('your-token-goes-here');
+```
+
+</branch>
 
 ## Catching UnhandledPromiseRejectionWarnings
 

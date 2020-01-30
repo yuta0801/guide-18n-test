@@ -12,12 +12,13 @@ const config = {
 		['meta', { name: 'og:type', content: 'website' }],
 		['meta', { name: 'og:url', content: 'https://guide.djs-jpn.tk/' }],
 		['meta', { name: 'og:locale', content: 'ja_JP' }],
+		['meta', { name: 'og:image', content: '/meta-image.png' }],
 	],
-	ga: 'UA-133246433-1',
+	plugins: [],
 	theme: 'yuu',
 	themeConfig: {
 		yuu: {
-			colorThemes: ['blue', 'red'],
+			extraOptions: { before: 'BranchSelector' },
 		},
 		repo: 'discordjs-japan/guide',
 		docsDir: 'guide',
@@ -61,6 +62,8 @@ if (process.env.NODE_ENV === 'production') {
 		apiKey: 'c8d9361fb8403f7c5111887e0edf4b5e',
 		indexName: 'discordjs',
 	};
+
+	config.plugins.push(['@vuepress/google-analytics', { ga: 'UA-108513187-1' }]);
 }
 
 module.exports = config;
