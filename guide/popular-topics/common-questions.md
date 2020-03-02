@@ -12,12 +12,26 @@ For a more detailed explanation on the notations commonly used in this guide, th
 
 ### How do I ban a user?
 
+<branch version="11.x">
+
 <!-- eslint-skip -->
 
 ```js
 const user = <message>.mentions.users.first();
 <guild>.ban(user);
 ```
+
+</branch>
+<branch version="12.x">
+
+<!-- eslint-skip -->
+
+```js
+const user = <message>.mentions.users.first();
+<guild>.members.ban(user);
+```
+
+</branch>
 
 ### How do I kick a user?
 
@@ -46,7 +60,7 @@ member.addRole(role);
 <!-- eslint-skip -->
 
 ```js
-const role = <guild>.roles.find(role => role.name === '<role name>');
+const role = <guild>.roles.cache.find(role => role.name === '<role name>');
 const member = <message>.mentions.members.first();
 member.roles.add(role);
 ```
@@ -54,6 +68,8 @@ member.roles.add(role);
 </branch>
 
 ### How do I check if a guild member has a certain role?
+
+<branch version="11.x">
 
 <!-- eslint-skip -->
 
@@ -63,6 +79,20 @@ if (member.roles.some(role => role.name === '<role name>')) {
 	// ...
 }
 ```
+
+</branch>
+<branch version="12.x">
+
+<!-- eslint-skip -->
+
+```js
+const member = <message>.mentions.members.first();
+if (member.roles.cache.some(role => role.name === '<role name>')) {
+	// ...
+}
+```
+
+</branch>
 
 ### How do I limit a command to a single user?
 
@@ -132,6 +162,8 @@ If you would like to set your activity upon startup, you can use the `ClientOpti
 
 ### How do I send a message to a certain channel?
 
+<branch version="11.x">
+
 <!-- eslint-skip -->
 
 ```js
@@ -139,7 +171,21 @@ const channel = <client>.channels.get('<id>');
 channel.send('<content>');
 ```
 
+</branch>
+<branch version="12.x">
+
+<!-- eslint-skip -->
+
+```js
+const channel = <client>.channels.cache.get('<id>');
+channel.send('<content>');
+```
+
+</branch>
+
 ### How do I DM a certain user?
+
+<branch version="11.x">
 
 <!-- eslint-skip -->
 
@@ -147,6 +193,18 @@ channel.send('<content>');
 const user = <client>.users.get('<id>');
 user.send('<content>');
 ```
+
+</branch>
+<branch version="12.x">
+
+<!-- eslint-skip -->
+
+```js
+const user = <client>.users.cache.get('<id>');
+user.send('<content>');
+```
+
+</branch>
 
 ::: tip
 If you want to DM the user who sent the message, you can use `<message>.author.send()`.
@@ -283,6 +341,8 @@ Assuming the process is to be done for the guild the message is sent in.
 
 ### How do I check which role was added/removed, and for which member?
 
+<branch version="11.x">
+
 <!-- eslint-skip -->
 
 ```js
@@ -291,9 +351,29 @@ Assuming the process is to be done for the guild the message is sent in.
 <client>.on('guildMemberUpdate', (oldMember, newMember) => {
 	// If the role(s) are present on the old member object but no longer on the new one (i.e role(s) were removed)
 	const removedRoles = oldMember.roles.filter(role => !newMember.roles.has(role.id));
-	if(removedRoles.size > 0) console.log(`The roles ${removedRoles.map(r => r.name)} were added to ${oldMember.displayName}.`);
+	if(removedRoles.size > 0) console.log(`The roles ${removedRoles.map(r => r.name)} were removed from ${oldMember.displayName}.`);
 	// If the role(s) are present on the new member object but are not on the new one (i.e role(s) were added)
 	const addedRoles = newMember.roles.filter(role => !oldMember.roles.has(role.id));
-	if(addedRoles.size > 0) console.log(`The roles ${addedRoles.map(r => r.name)} were removed from ${oldMember.displayName}.`);
+	if(addedRoles.size > 0) console.log(`The roles ${addedRoles.map(r => r.name)} were added to ${oldMember.displayName}.`);
 });
 ```
+
+</branch>
+<branch version="12.x">
+
+<!-- eslint-skip -->
+
+```js
+// We start by declaring a guildMemberUpdate listener
+// This code should be placed outside of any other listener callbacks to prevent listener nesting
+<client>.on('guildMemberUpdate', (oldMember, newMember) => {
+	// If the role(s) are present on the old member object but no longer on the new one (i.e role(s) were removed)
+	const removedRoles = oldMember.roles.cache.filter(role => !newMember.roles.cache.has(role.id));
+	if (removedRoles.size > 0) console.log(`The roles ${removedRoles.map(r => r.name)} were added to ${oldMember.displayName}.`);
+	// If the role(s) are present on the new member object but are not on the new one (i.e role(s) were added)
+	const addedRoles = newMember.roles.cache.filter(role => !oldMember.roles.cache.has(role.id));
+	if (addedRoles.size > 0) console.log(`The roles ${addedRoles.map(r => r.name)} were removed from ${oldMember.displayName}.`);
+});
+```
+
+</branch>

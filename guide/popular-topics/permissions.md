@@ -10,6 +10,8 @@ If you want to keep your bots permission checks simple, you might find it suffic
 
 If you have the role ID, you can simply check if the `.roles` Collection on a GuildMember object includes it, using `.has()`. Should you not know the ID and want to check for something like a role named "Mod", you can use `.some()`.
 
+<branch version="11.x">
+
 ```js
 member.roles.has('role-id-here');
 // returns true if the member has the role
@@ -17,6 +19,19 @@ member.roles.has('role-id-here');
 member.roles.some(role => role.name === 'Mod');
 // returns true if any of the member's roles is exactly named "Mod"
 ```
+
+</branch>
+<branch version="12.x">
+
+```js
+member.roles.cache.has('role-id-here');
+// returns true if the member has the role
+
+member.roles.cache.some(role => role.name === 'Mod');
+// returns true if any of the member's roles is exactly named "Mod"
+```
+
+</branch>
 
 If you want to enhance this system slightly, you can include the guild owner by comparing the executing members ID with `message.guild.ownerID`. 
 
@@ -39,11 +54,22 @@ You can provide permission decimals wherever we use flag literals in this guide.
 
 ### Setting role permissions
 
-Base permissions are set on roles, not the guild member itself. To change them, you access a Role object (for example via `member.roles.first()` or `guild.roles.random()`) and use the `.setPermissions()` method. This is how you'd change the base permissions for the @everyone role, for example:
+Base permissions are set on roles, not the guild member itself. To change them, you access a Role object (for example via <branch version="11.x" inline>`member.roles.first()` or `guild.roles.random()`</branch><branch version="12.x" inline>`member.roles.cache.first()` or `guild.roles.cache.random()`</branch>) and use the `.setPermissions()` method. This is how you'd change the base permissions for the @everyone role, for example:
+
+<branch version="11.x">
 
 ```js
 guild.defaultRole.setPermissions(['SEND_MESSAGES', 'VIEW_CHANNEL']);
 ```
+
+</branch>
+<branch version="12.x">
+
+```js
+guild.roles.everyone.setPermissions(['SEND_MESSAGES', 'VIEW_CHANNEL']);
+```
+
+</branch>
 
 Any permission not referenced in the flag array or bit field are not granted to the role. 
 
@@ -137,7 +163,7 @@ channel.overwritePermissions(channel.guild.defaultRole, { VIEW_CHANNEL: false })
 <branch version="12.x">
 
 ```js
-channel.updateOverwrite(channel.guild.defaultRole, { VIEW_CHANNEL: false });
+channel.updateOverwrite(channel.guild.roles.everyone, { VIEW_CHANNEL: false });
 ```
 
 </branch>
@@ -219,13 +245,13 @@ channel.replacePermissionOverwrites({
 
 ```js
 // copying overwrites from another channel
-channel.overwritePermissions({ overwrites: otherChannel.permissionOverwrites });
+channel.overwritePermissions({ permissionOverwrites: otherChannel.permissionOverwrites });
 
 // replacing overwrites with PermissionOverwriteOptions
 channel.overwritePermissions({
 	permissionOverwrites: [
 		{
-			id: guild.defaultRole.id,
+			id: guild.id,
 			deny: ['VIEW_CHANNEL'],
 		},
 		{

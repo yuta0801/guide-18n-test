@@ -156,6 +156,8 @@ Another common error, this error originates from the client attempting to execut
 
 This error is also caused by attempting to use a client which has not been logged in. Both of the examples below will throw errors.
 
+<branch version="11.x">
+
 ```js
 const { Client } = require('discord.js');
 const client = new Client(); // Should not be here!
@@ -179,15 +181,39 @@ client.login('token');
 client.fetchUser('myId').then(someInitFunction);
 ```
 
+</branch>
 <branch version="12.x">
+
+```js
+const { Client } = require('discord.js');
+const client = new Client(); // Should not be here!
+
+module.exports = (message, args) =>	{
+	// Should be message.client instead!
+	client.users.fetch(args[0]).then(user => {
+		message.reply('your requested user', user.tag);
+	});
+};
+```
+
+```js
+const { Client } = require('discord.js');
+const client = new Client();
+
+client.on('message', someHandlerFunction);
+
+client.login('token');
+//	client will not be logged in yet!
+client.users.fetch('myId').then(someInitFunction);
+```
 
 ### MessageEmbed field names may not be empty.
 
-This error originates from attempting to call `MessageEmbed.addField()` without the first parameter, which is a title. If you would like the title to be empty for a reason, you should use a zero width space, which can be inputted as `\u200b`.
+This error originates from attempting to call `MessageEmbed.addFields()` with field object that has an empty string as a value for `name` field. If you would like the title to be empty for a reason, you should use a zero width space, which can be inputted as `\u200b`.
 
 ### MessageEmbed field values may not be empty.
 
-This error, in conjunction to the previous error, is the result of calling `MessageEmbed.addField()` without the second parameter, the value. You can use a zero width space if you would like this empty.
+This error, in conjunction to the previous error, is the result of calling `MessageEmbed.addFields()` with field object that has an empty string as a value for `value` field. You can use a zero width space if you would like this empty.
 
 </branch>
 
@@ -195,7 +221,7 @@ This error, in conjunction to the previous error, is the result of calling `Mess
 
 This error originates from an invalid call to `bulkDelete()`, make sure you are inputting a valid Array or Collection of messages, or a valid number.
 
-### Members didnt't arrive in time.
+### Members didn't arrive in time.
 
 Another common error, this error originates from the client requesting members from the API through the websocket, and the member chunks not arriving in time and triggering the timeout. The most common cause to this error is a bad connection, however, it can also be caused by a very large amount of members being fetched, upwards of 50 thousand. To fix this, run the bot on a location with better internet, such as a VPS. If this does not work for you, you will have to manually change the hardcoded member fetching timeout in the source code.
 

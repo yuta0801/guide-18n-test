@@ -58,13 +58,15 @@ Great! This route may not always be available to you, though. Sometimes you'll n
 Two of the easiest ways you can retrieve an emoji would be:
 
 * Use `.find()` on a Collection of Emojis.
-* Use `.get()` on the `client.emojis` Collection.
+* Use `.get()` on the <branch version="11.x" inline>`client.emojis`</branch><branch version="12.x" inline>`client.emojis.cache`</branch> Collection.
 
 ::: tip
 It is possible for two or more emojis to have the same name, and using `.find()` will only return the **first** entry it finds. As such, this can cause unexpected results.
 :::
 
 Using `.find()`, your code would look something like this:
+
+<branch version="11.x">
 
 ```js
 if (message.content === '!react-custom') {
@@ -73,7 +75,21 @@ if (message.content === '!react-custom') {
 }
 ```
 
+</branch>
+<branch version="12.x">
+
+```js
+if (message.content === '!react-custom') {
+	const emoji = message.guild.emojis.cache.find(emoji => emoji.name === 'ayy');
+	message.react(emoji);
+}
+```
+
+</branch>
+
 Using `.get()`, your code would look something like this:
+
+<branch version="11.x">
 
 ```js
 if (message.content === '!react-custom') {
@@ -81,6 +97,18 @@ if (message.content === '!react-custom') {
 	message.react(emoji);
 }
 ```
+
+</branch>
+<branch version="12.x">
+
+```js
+if (message.content === '!react-custom') {
+	const emoji = client.emojis.cache.get(config.emojiID);
+	message.react(emoji);
+}
+```
+
+</branch>
 
 Of course, if you already have the emoji ID, you should just put that directly inside the `.react()` method. But if you want to do other things with the emoji data later on (e.g. display the name or image URL), it's best to retrieve the full emoji object.
 
@@ -184,11 +212,11 @@ message.reactions.removeAll().catch(error => console.error('Failed to clear reac
 
 ### Removing reactions by emoji
 
-Removing reactions by emoji is not as straightforward as clearing all reactions. The API does not provide a method for selectively removing reactions by emoji, it only allows you to remove a user from a specific reaction. This means you will have to get the users who reacted with that emoji, and loop through and remove each one of them.
-
-Reaction collections are keyed by <branch version="11.x" inline>`name:id`</branch><branch version="12.x" inline>`id`</branch> for custom emojis and by `name` for unicode emojis (represented by their unicode character, see [here](/popular-topics/reactions.html#unicode-emojis)). Once you have the key you can simply run a `.get()` on `message.reactions` to get the reaction representing the emoji you want.
-
 <branch version="11.x">
+
+Removing reactions by emoji is not as straightforward as clearing all reactions. Discord.js version 11.5.x does not provide a method for selectively removing reactions by emoji, it only allows you to remove a user from a specific reaction. This means you will have to get the users who reacted with that emoji, and loop through and remove each one of them.
+
+Reaction collections are keyed by `name:id` for custom emojis and by `name` for unicode emojis (represented by their unicode character, see [here](/popular-topics/reactions.html#unicode-emojis)). Once you have the key you can simply run a `.get()` on `message.reactions` to get the reaction representing the emoji you want.
 
 <!-- eslint-skip -->
 ```js
@@ -202,34 +230,27 @@ try {
 }
 ```
 
+The reason we use a `for...of` loop over something like `.forEach()` is due to `.forEach()`'s behavior for async operations. `.forEach()` will send out all calls almost at once even if we await inside of the function. However, if we `await` inside of a `for...of` loop, it will wait for the previous reaction to go through, and we avoid spamming the API with a lot of calls at once.
+
 </branch>
 <branch version="12.x">
 
-<!-- eslint-skip -->
+Removing reactions by emoji is easily done by using [`MessageReaction.remove()`](https://discord.js.org/#/docs/main/master/class/MessageReaction?scrollTo=remove).
+
 ```js
-const reaction = message.reactions.get('484535447171760141');
-try {
-	for (const user of reaction.users.values()) {
-		await reaction.users.remove(user);
-	}
-} catch (error) {
-	console.error('Failed to remove reactions.');
-}
+message.reactions.cache.get('484535447171760141').remove().catch(error => console.error('Failed to remove reactions: ', error));
 ```
 
 </branch>
 
-The reason we use a `for...of` loop over something like `.forEach()` is due to `.forEach()`'s behavior for async operations. `.forEach()` will send out all calls almost at once even if we await inside of the function. However, if we `await` inside of a `for...of` loop, it will wait for the previous reaction to go through, and we avoid spamming the API with a lot of calls at once.
-
 ### Removing reactions by user
-
-Removing reactions by user is similar to what you did before. However, instead of iterating through users of a reaction, you will iterate through reactions which include a user. To do this you will get all reactions and filter based on whether the user has reacted. 
-
 ::: tip
 If you are not familiar with [`Collection.filter()`](https://discord.js.org/#/docs/main/stable/class/Collection?scrollTo=filter) and [`Collection.has()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/has) take the time to understand what they do and then come back.
 :::
 
 <branch version="11.x">
+
+Removing reactions by user is similar to what you did before. However, instead of iterating through users of a reaction, you will iterate through reactions which include a user. To do this you will get all reactions and filter based on whether the user has reacted. 
 
 <!-- eslint-skip -->
 ```js
@@ -243,12 +264,18 @@ try {
 }
 ```
 
+::: warning
+Make sure not to remove reactions by emoji or by user too much, if there are a lot of reactions or a lot of users it can be considered API spam.
+:::
+
 </branch>
 <branch version="12.x">
 
+Removing reactions by user is not as straightforward as removing by emoji or removing all reactions. The API does not provide a method for selectively removing reactions of a user. This means you will have to iterate through reactions which include the user and remove them.
+
 <!-- eslint-skip -->
 ```js
-const userReactions = message.reactions.filter(reaction => reaction.users.has(userId));
+const userReactions = message.reactions.cache.filter(reaction => reaction.users.cache.has(userId));
 try {
 	for (const reaction of userReactions) {
 		await reaction.users.remove(userId);
@@ -258,11 +285,11 @@ try {
 }
 ```
 
-</branch>
-
 ::: warning
-Make sure not to remove reactions by emoji or by user too much, if there are a lot of reactions or a lot of users it can be considered API spam.
+Make sure not to remove reactions by user too much, if there are a lot of reactions or a lot of users it can be considered API spam.
 :::
+
+</branch>
 
 ## Awaiting reactions
 
@@ -310,26 +337,20 @@ Make sure you enable partial structures for `MESSAGE`, `CHANNEL` and `REACTION` 
 const Discord = require('discord.js');
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 client.on('messageReactionAdd', async (reaction, user) => {
-	// When we receive a reaction we check if the message is partial or not
-	if (reaction.message.partial) {
-		// If the message was removed the fetching might result in an API error, which we need to handle
+	// When we receive a reaction we check if the reaction is partial or not
+	if (reaction.partial) {
+		// If the message this reaction belongs to was removed the fetching might result in an API error, which we need to handle
 		try {
-			await reaction.message.fetch();
+			await reaction.fetch();
 		} catch (error) {
 			console.log('Something went wrong when fetching the message: ', error);
+			// Return as `reaction.message.author` may be undefined/null
+			return;
 		}
 	}
 	// Now the message has been cached and is fully available
 	console.log(`${reaction.message.author}'s message "${reaction.message.content}" gained a reaction!`);
-	// We can also check if the reaction is partial or not
-	if (reaction.partial) {
-		try {
-			await reaction.fetch();
-		} catch (error) {
-			console.log('Something went wrong when fetching the reaction: ', error);
-		}
-	}
-	// Now the reaction is fully available and the properties will be reflected accurately:
+	// The reaction is now also fully available and the properties will be reflected accurately:
 	console.log(`${reaction.count} user(s) have given the same reaction to this message!`);
 });
 ```

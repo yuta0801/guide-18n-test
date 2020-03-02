@@ -4,15 +4,30 @@ After a long time in development, Discord.js v12 is nearing a stable release, me
 
 ## Before You Start
 
-v12 requires Node 10.2.x or higher to  use, so make sure you're up-to-date.  To check your Node version, use `node -v` in your terminal or command prompt, and if it's not high enough, update it!  There are many resources online to help you get up-to-date.
+v12 requires Node 12.x or higher to  use, so make sure you're up-to-date.  To check your Node version, use `node -v` in your terminal or command prompt, and if it's not high enough, update it!  There are many resources online to help you get up-to-date.
 
-For now, you do need Git installed and added to your PATH environment, so ensure that's done as well - again, guides are available online for a wide variety of operating systems.  Once you have Node up-to-date and Git installed, you can install v12 by running `npm install discordjs/discord.js` in your terminal or command prompt for text-only use, or `npm install discordjs/discord.js @discordjs/opus` for voice support.
+For now, you do need Git installed and added to your PATH environment, so ensure that's done as well - again, guides are available online for a wide variety of operating systems.  Once you have Node up-to-date and Git installed, you can install v12 by running `npm install discord.js` in your terminal or command prompt for text-only use, or `npm install discord.js @discordjs/opus` for voice support.
 
 ## Commonly Used Methods That Changed
 
 * All section headers are named in the following convention: `Class#methodOrProperty`.
 * The use of parenthesis designates optional inclusion. For example, `Channel#fetch(Pinned)Message(s)` means that this section will include changes for `Channel#fetchPinnedMessages`, `Channel#fetchMessages`, and `Channel#fetchMessage`.
 * The use of asterisks designates a wildcard. For example, `Channel#send***` means that this section will include changes for `Channel#sendMessage`, `Channel#sendFile`, `Channel#sendEmbed`, and so forth.
+
+### Managers/ Cache
+
+v12 introduces the concept of managers, you will no longer be able to directly use collection methods such as `Collection#get` on data structures like `Client#users`. You will now have to directly ask for cache on a manager before trying to use collection methods. Any method that is called directly on a manager will call the API, such as `GuildMemberManager#fetch` and `MessageManager#delete`. 
+
+```diff
+- client.users.get('123456789012345678');
++ client.users.cache.get('123456789012345678');
+
+- channel.messages.get('123456789012345678');
++ channel.messages.cache.get('123456789012345678');
+
+- guild.members.get('123456789012345678');
++ guild.members.cache.get('123456789012345678');
+```
 
 ### Collection
 
@@ -22,7 +37,7 @@ For now, you do need Git installed and added to your PATH environment, so ensure
 
 ```diff
 - client.users.exists('username', 'Bob');
-+ client.users.some(user => user.username === 'Bob');
++ client.users.cache.some(user => user.username === 'Bob');
 ```
 
 #### Collection#filterArray
@@ -35,7 +50,7 @@ For now, you do need Git installed and added to your PATH environment, so ensure
 
 ```diff
 - client.users.find('username', 'Bob');
-+ client.users.find(user => user.username === 'Bob');
++ client.users.cache.find(user => user.username === 'Bob');
 ```
 
 #### Collection#findAll
@@ -44,7 +59,7 @@ For now, you do need Git installed and added to your PATH environment, so ensure
 
 ### Fetch
 
-Some methods that retrieve uncached data have been changed, transformed in the shape of a DataStore.
+Some methods that retrieve uncached data have been changed, transformed in the shape of a Manager.
 
 ```diff
 - client.fetchUser('123456789012345678');
@@ -99,7 +114,7 @@ All the `.send***()` methods have been removed in favor of one general `.send()`
 
 ### Roles
 
-The `GuildMember.roles` Collection has been changed to a DataStore in v12, so a lot of the associated methods for interacting with a member's roles have changed as well.  They're no longer on the GuildMember object itself, but instead now on the `GuildMemberRoleStore` DataStore.
+The `GuildMember.roles` Collection has been changed to a Manager in v12, so a lot of the associated methods for interacting with a member's roles have changed as well.  They're no longer on the GuildMember object itself, but instead now on the `GuildMemberRoleManager`. The Manager holds API methods and cache for the roles, in the form of `GuildMemberRoleManager#cache` which is a plain Collection.
 
 ```diff
 - guildMember.addRole('123456789012345678');
@@ -114,9 +129,12 @@ The `GuildMember.roles` Collection has been changed to a DataStore in v12, so a 
 
 - guildMember.setRoles(['123456789012345678', '098765432109876543']);
 + guildMember.roles.set(['123456789012345678', '098765432109876543']);
+
+- guildMember.roles.get('123456789012345678');
++ guildMember.roles.cache.get('123456789012345678');
 ```
 
-In addition, the GuildMember properties related to roles have also been moved to the `GuildMemberRoleStore` DataStore.
+In addition, the GuildMember properties related to roles have also been moved to the `GuildMemberRoleManager`.
 
 ```diff
 - guildMember.colorRole;
@@ -131,7 +149,7 @@ In addition, the GuildMember properties related to roles have also been moved to
 
 ### Ban and Unban
 
-The method to ban members and users have been moved to the `GuildMemberStore` Data Store.
+The method to ban members and users have been moved to the `GuildMemberManager`.
 
 ```diff
 - guild.ban('123456789012345678');
@@ -169,7 +187,7 @@ user.avatarURL({ format: 'png', dynamic: true, size: 1024 });
 
 ### RichEmbed Constructor
 
-The RichEmbed constructor has been removed and now the `MessageEmbed` constructor is used.  It is largely the same to use, the only difference being the removal of `RichEmbed.attachFile()` - `MessageEmbed.attachFiles()` accepts a single file as a parameter as well.
+The RichEmbed constructor has been removed and now the `MessageEmbed` constructor is used. It is largely the same to use, the only differences being the removal of `RichEmbed.attachFile()` - `MessageEmbed.attachFiles()` accepts a single file as a parameter as well, and removing `RichEmbed.addField()` and `RichEmbed.addBlankField()` methods in favor of `MessageEmbed.addFields()` which can add multiple fields in one call.
 
 ### String Concatenation
 
@@ -290,34 +308,33 @@ Any voice-related classes may change at any time, as they're still actively bein
 * BroadcastDispatcher [(additions)](/additional-info/changes-in-v12.md#broadcastdispatcher)
 * Channel (changed send/fetch to TextChannel) [(additions)](/additional-info/changes-in-v12.md#channel)
 * ClientApplication [(additions)](/additional-info/changes-in-v12.md#clientapplication)
-* Client [(changes)](/additional-info/changes-in-v12.md#client) [(additions)](/additional-info/changes-in-v12.md#client-1)
-* ClientOptions [(changes)](/additional-info/changes-in-v12.md#clientoptions) [(additions)](/additional-info/changes-in-v12.md#clientoptions-1)
-* ClientUser [(changes)](/additional-info/changes-in-v12.md#clientuser) [(additions)](/additional-info/changes-in-v12.md#clientuser-1)
+* Client [(changes)](/additional-info/changes-in-v12.md#client) [(additions)](/additional-info/changes-in-v12.md#client-2)
+* ClientOptions [(changes)](/additional-info/changes-in-v12.md#clientoptions) [(additions)](/additional-info/changes-in-v12.md#clientoptions-2)
+* ClientUser [(changes)](/additional-info/changes-in-v12.md#clientuser)
 * Collection [(changes)](/additional-info/changes-in-v12.md#collection)
-* Collector [(changes)](/additional-info/changes-in-v12.md#collector) [(additions)](/additional-info/changes-in-v12.md#collector-1)
+* Collector [(changes)](/additional-info/changes-in-v12.md#collector) [(additions)](/additional-info/changes-in-v12.md#collector-2)
 * CollectorOptions [(additions)](/additional-info/changes-in-v12.md#collectoroptions)
-* DMChannel [(changes)](/additional-info/changes-in-v12.md#dmchannel) [(additions)](/additional-info/changes-in-v12.md#dmchannel-1)
+* DMChannel [(changes)](/additional-info/changes-in-v12.md#dmchannel) [(additions)](/additional-info/changes-in-v12.md#dmchannel-2)
 * Emoji [(changes)](/additional-info/changes-in-v12.md#emoji)
 * EvaluatedPermissions [(changes)](/additional-info/changes-in-v12.md#evaluatedpermissions)
 * Game [(changes)](/additional-info/changes-in-v12.md#game)
 * GroupDMChannel [(changes)](/additional-info/changes-in-v12.md#groupdmchannel)
-* Guild [(changes)](/additional-info/changes-in-v12.md#guild) [(additions)](/additional-info/changes-in-v12.md#guild-1)
-* GuildChannel [(changes)](/additional-info/changes-in-v12.md#guildchannel) [(additions)](/additional-info/changes-in-v12.md#guildchannel-1)
+* Guild [(changes)](/additional-info/changes-in-v12.md#guild) [(additions)](/additional-info/changes-in-v12.md#guild-2)
+* GuildChannel [(changes)](/additional-info/changes-in-v12.md#guildchannel) [(additions)](/additional-info/changes-in-v12.md#guildchannel-2)
 * GuildMember [(changes)](/additional-info/changes-in-v12.md#guildmember)
 * HTTPError [(additions)](/additional-info/changes-in-v12.md#httperror)
-* Integration [(additions)](/additional-info/changes-in-v12.md#integrations)
 * Invite [(changes)](/additional-info/changes-in-v12.md#invite)
-* Message [(changes)](/additional-info/changes-in-v12.md#message) [(additions)](/additional-info/changes-in-v12.md#message-1)
-* MessageAttachment [(changes)](/additional-info/changes-in-v12.md#messageattachment) [(additions)](/additional-info/changes-in-v12.md#messageattachment-1)
+* Message [(changes)](/additional-info/changes-in-v12.md#message) [(additions)](/additional-info/changes-in-v12.md#message-2)
+* MessageAttachment [(changes)](/additional-info/changes-in-v12.md#messageattachment) [(additions)](/additional-info/changes-in-v12.md#messageattachment-2)
 * MessageCollectorOptions [(changes)](/additional-info/changes-in-v12.md#messagecollectoroptions)
-* MessageEmbed [(changes)](/additional-info/changes-in-v12.md#messageembed) [(additions)](/additional-info/changes-in-v12.md#messageembed-1)
+* MessageEmbed [(changes)](/additional-info/changes-in-v12.md#messageembed) [(additions)](/additional-info/changes-in-v12.md#messageembed-2)
 * MessageMentions [(changes)](/additional-info/changes-in-v12.md#messagementions)
 * MessageReaction [(changes)](/additional-info/changes-in-v12.md#messagereaction)
 * OAuth2Application [(changes)](/additional-info/changes-in-v12.md#oauth2application)
-* PartialGuild [(changes)](/additional-info/changes-in-v12.md#partialguildchannel)
-* PartialGuildChannel [(changes)](/additional-info/changes-in-v12.md#partialguildchannel)
-* Permissions [(changes)](/additional-info/changes-in-v12.md#permissions) [(additions)](/additional-info/changes-in-v12.md#permissions-1)
-* Presence [(changes)](/additional-info/changes-in-v12.md#presence) [(additions)](/additional-info/changes-in-v12.md#presence-1)
+* PartialGuild [(changes)](/additional-info/changes-in-v12.md#partialguild-channel)
+* PartialGuildChannel [(changes)](/additional-info/changes-in-v12.md#partialguild-channel)
+* Permissions [(changes)](/additional-info/changes-in-v12.md#permissions) [(additions)](/additional-info/changes-in-v12.md#permissions-2)
+* Presence [(changes)](/additional-info/changes-in-v12.md#presence) [(additions)](/additional-info/changes-in-v12.md#presence-2)
 * ReactionCollector [(additions)](/additional-info/changes-in-v12.md#reactioncollector)
 * ReactionEmoji [(changes)](/additional-info/changes-in-v12.md#)
 * RichEmbed [(changes)](/additional-info/changes-in-v12.md#richembed)
@@ -327,17 +344,17 @@ Any voice-related classes may change at any time, as they're still actively bein
 * ShardClientUtil [(changes)](/additional-info/changes-in-v12.md#shardclientutil)
 * ShardingManager [(changes)](/additional-info/changes-in-v12.md#shardingmanager)
 * StreamDispatcher [(changes)](/additional-info/changes-in-v12.md#streamdispatcher)
-* TextChannel [(changes)](/additional-info/changes-in-v12.md#textchannel) [(additions)](/additional-info/changes-in-v12.md#textchannel-1)
-* User [(changes)](/additional-info/changes-in-v12.md#user) [(additions)](/additional-info/changes-in-v12.md#user-1)
-* Util [(changes)](/additional-info/changes-in-v12.md#util) [(additions)](/additional-info/changes-in-v12.md#util-1)
-* VoiceBroadcast [(changes)](/additional-info/changes-in-v12.md#voicebroadcast) [(additions)](/additional-info/changes-in-v12.md#voicebroadcast-1)
+* TextChannel [(changes)](/additional-info/changes-in-v12.md#textchannel) [(additions)](/additional-info/changes-in-v12.md#textchannel-2)
+* User [(changes)](/additional-info/changes-in-v12.md#user) [(additions)](/additional-info/changes-in-v12.md#user-2)
+* Util [(changes)](/additional-info/changes-in-v12.md#util)
+* VoiceBroadcast [(changes)](/additional-info/changes-in-v12.md#voicebroadcast) [(additions)](/additional-info/changes-in-v12.md#voicebroadcast-2)
 * VoiceChannel [(additions)](/additional-info/changes-in-v12.md#voicechannel)
 * VoiceConnection [(changes)](/additional-info/changes-in-v12.md#voiceconnection)
-* VoiceReceiver [(changes)](/additional-info/changes-in-v12.md#voicereceiver) [(additions)](/additional-info/changes-in-v12.md#voicereceiver-1)
+* VoiceReceiver [(changes)](/additional-info/changes-in-v12.md#voicereceiver) [(additions)](/additional-info/changes-in-v12.md#voicereceiver-2)
 * VoiceRegion [(changes)](/additional-info/changes-in-v12.md#voiceregion)
 * VoiceState [(additions)](/additional-info/changes-in-v12.md#voicestate)
-* VolumeInterface [(changes)](/additional-info/changes-in-v12.md#volumeinterface) [(additions)](/additional-info/changes-in-v12.md#volumeinterface-1)
-* Webhook [(changes)](/additional-info/changes-in-v12.md#webhook) [(additions)](/additional-info/changes-in-v12.md#webhook-1)
+* VolumeInterface [(changes)](/additional-info/changes-in-v12.md#volumeinterface)
+* Webhook [(changes)](/additional-info/changes-in-v12.md#webhook) [(additions)](/additional-info/changes-in-v12.md#webhook-2)
 * WebhookClient [(changes)](/additional-info/changes-in-v12.md#webhookclient)
 * WebSocketManager [(additions)](/additional-info/changes-in-v12.md#websocketmanager)
 * WebSocketShard [(additions)](/additional-info/changes-in-v12.md#websocketshard)
@@ -360,7 +377,7 @@ The `Attachment` class has been removed in favor of the `MessageAttachment` clas
 
 #### Client#fetchUser
 
-`client.fetchUser()` has been removed and transformed in the shape of a DataStore.
+`client.fetchUser()` has been removed and transformed in the shape of a Manager.
 
 ```diff
 - client.fetchUser('123456789012345678');
@@ -382,7 +399,7 @@ The `Attachment` class has been removed in favor of the `MessageAttachment` clas
 
 #### Client#channels
 
-`client.channels` has been changed from a Collection to a DataStore.
+`client.channels` has been changed from a Collection to a Manager.
 
 #### Client#clientUserGuildSettingsUpdate
 
@@ -403,7 +420,7 @@ The `client.disconnect` event has been removed in favor of the `client.shardDisc
 
 #### Client#emojis
 
-`client.emojis` has been changed from a Collection to a DataStore.
+`client.emojis` has been changed from a Collection to a Manager.
 
 #### Client#guildMemberSpeaking
 
@@ -411,7 +428,7 @@ The `speaking` parameter has been changed from a `boolean` value to a read-only 
 
 #### Client#guilds
 
-`client.guilds` has been changed from a Collection to a DataStore.
+`client.guilds` has been changed from a Collection to a Manager.
 
 #### Client#ping
 
@@ -476,7 +493,7 @@ The `client.userNoteUpdate` event has been removed entirely, along with all othe
 
 #### Client#users
 
-`client.users` has been changed from a Collection to a DataStore.
+`client.users` has been changed from a Collection to a Manager.
 
 #### Client#voiceConnections
 
@@ -551,7 +568,7 @@ There have been several changes made to the `ClientOptions` object located in `c
 
 #### ClientUser#createGuild
 
-`clientUser.createGuild()` has been transformed in the shape of a DataStore.  In addition, the second and third parameters in `clientUser.createGuild()` have been changed/removed, leaving it with a total of two parameters. The `region` and `icon` parameters from v11 have been merged into an object as the second parameter.
+`clientUser.createGuild()` has been transformed in the shape of a Manager.  In addition, the second and third parameters in `clientUser.createGuild()` have been changed/removed, leaving it with a total of two parameters. The `region` and `icon` parameters from v11 have been merged into an object as the second parameter.
 
 ```diff
 - clientUser.createGuild('New server', 'us-east', './path/to/file.png');
@@ -689,7 +706,7 @@ Both methods will now return `undefined` if nothing is found.
 
 ```diff
 - client.users.exists('username', 'Bob');
-+ client.users.some(user => user.username === 'Bob');
++ client.users.cache.some(user => user.username === 'Bob');
 ```
 
 #### Collection#filterArray
@@ -734,7 +751,7 @@ The `amount` parameter of these methods now allows a negative number which will 
 
 #### DMChannel#fetch(Pinned)Message(s)
 
-`dmChannel.fetchMessage(s)` has been transformed in the shape of a DataStore.  See the [TextChannel#fetch(Pinned)Message(s)](/additional-info/changes-inv-v12.md#channel) section for more information.
+`dmChannel.fetchMessage(s)` has been transformed in the shape of a Manager.  See the [TextChannel#fetch(Pinned)Message(s)](/additional-info/changes-inv-v12.md#channel) section for more information.
 
 #### DMChannel#search
 
@@ -750,14 +767,16 @@ Just like the `TextChannel#send***` methods, all the `.send***()` methods have b
 
 #### Emoji#\*\*\*RestrictedRole(s)
 
-The helper methods to add and remove a role or roles from the roles allowed to use the emoji have been removed from `emoji.edit()` and are now set via `guildEmoji.edit()`.
+The helper methods to add and remove a role or roles from the roles allowed to use the emoji are now set via the `GuildEmojiRoleManager`.
 
 ```diff
 - emoji.addRestrictedRole('123456789012345678');
 - emoji.addRestrictedRoles(['123456789012345678', '098765432109876543']);
 - emoji.removeRestrictedRole('1234567890123345678');
 - emoji.removedRestrictedRoles(['123456789012345678', '098765432109876543']);
-+ emoji.edit({ roles: ['123456789012345678', '098765432109876543'] })
++ emoji.roles.add('123456789012345678');
++ emoji.roles.remove('123456789012345678');
++ emoji.roles.set(['123456789012345678', '098765432109876543']);
 ```
 
 #### Emoji#deletable
@@ -782,11 +801,11 @@ The helper methods to add and remove a role or roles from the roles allowed to u
 
 ### Game
 
-The `Game` class has been removed in favor of the `Activity` class to be consistent with the API.
+The `Game` class has been removed in favor of the `Activity` class to be consistent with the API. It is also an array of multiple Activities, since a user can have multiple.
 
 ```diff
 - user.presence.game
-+ user.presence.activity
++ user.presence.activities
 ```
 
 ### GroupDMChannel
@@ -805,7 +824,7 @@ The `GroupDMChannel` class has been deprecated from the Discord API.  While it's
 
 #### Guild#ban
 
-`guild.ban()` has been moved to the `GuildMemberStore`.  In addition, the second parameter in `guild.members.ban()` has been changed. The `options` parameter no longer accepts a number, nor a string.
+`guild.ban()` has been moved to the `GuildMemberManager`.  In addition, the second parameter in `guild.members.ban()` has been changed. The `options` parameter no longer accepts a number, nor a string.
 
 ```diff
 - guild.ban(user, 7);
@@ -817,20 +836,20 @@ The `GroupDMChannel` class has been deprecated from the Discord API.  While it's
 
 #### Guild#Channels
 
-`guild.channels` is now a DataStore instead of a Collection.
+`guild.channels` is now a Manager instead of a Collection.
 
 #### Guild#createChannel
 
-`guild.createChannel()` has been transformed in the shape of a DataStore.  The second, third and fourth parameters in `guild.createChannel()` have been changed/removed, leaving it with a total of two parameters, the second one being an object with all of the options available in `ChannelData`.
+`guild.createChannel()` has been transformed in the shape of a Manager.  The second, third and fourth parameters in `guild.createChannel()` have been changed/removed, leaving it with a total of two parameters, the second one being an object with all of the options available in `ChannelData`.
 
 ```diff
 - guild.createChannel('new-channel', 'text', permissionOverwriteArray, 'New channel added for fun!');
-+ guild.channels.create('new-channel', 'text', { overwrites: permissionOverwriteArray, reason: 'New channel added for fun!' });
++ guild.channels.create('new-channel', { type: 'text', permissionOverwrites: permissionOverwriteArray, reason: 'New channel added for fun!' });
 ```
 
 #### Guild#createEmoji
 
-`guild.createEmoji()` has been transformed in the shape of a DataStore.  The third and fourth parameters in `guild.createEmoji()` have been changed/removed, leaving it with a total of three parameters. The `roles` and `reason` parameters from v11 have been merged into an object as the third parameter.
+`guild.createEmoji()` has been transformed in the shape of a Manager.  The third and fourth parameters in `guild.createEmoji()` have been changed/removed, leaving it with a total of three parameters. The `roles` and `reason` parameters from v11 have been merged into an object as the third parameter.
 
 ```diff
 - guild.createEmoji('./path/to/file.png', 'NewEmoji', collectionOfRoles, 'New emoji added for fun!');
@@ -839,7 +858,7 @@ The `GroupDMChannel` class has been deprecated from the Discord API.  While it's
 
 #### Guild#createRole
 
-`guild.createRole()` has been transformed in the shape of a DataStore.  The first and second parameters in `guild.createRole()` have been changed/removed, leaving it with a total of one parameter. The `data` and `reason` parameters from v11 have been moved into an object as the first parameter.
+`guild.createRole()` has been transformed in the shape of a Manager.  The first and second parameters in `guild.createRole()` have been changed/removed, leaving it with a total of one parameter. The `data` and `reason` parameters from v11 have been moved into an object as the first parameter.
 
 ```diff
 - guild.createRole(roleData, 'New staff role!');
@@ -848,7 +867,7 @@ The `GroupDMChannel` class has been deprecated from the Discord API.  While it's
 
 #### Guild#deleteEmoji
 
-`Guild.deleteEmoji()` has been removed and transformed in the shape of a DataStore. Note the possible use of `resolve()` as a broader alternative to `get()`.
+`Guild.deleteEmoji()` has been removed and transformed in the shape of a Manager. Note the possible use of `resolve()` as a broader alternative to `get()`.
 
 ```diff
 - guild.deleteEmoji('123456789012345678');
@@ -863,8 +882,8 @@ Unfortunately, "default" channels don't exist in Discord anymore, and as such, t
 
 **A:** There are a few ways to tackle this. Using the example of a welcome message system, you can:
 
-1. Set up a database table to store the channel ID in a column when someone uses a `!welcome-channel #channel-name` command, for example. Then inside the `guildMemberAdd` event, use `client.channels.get('id')` and send a message to that channel. This is the most reliable method and gives server staff freedom to rename the channel as they please.
-2. Make a new command that creates a `welcome-messages` channel, use `guild.channels.find(channel => channel.name === 'welcome-messages')`, and send a message to that channel. This method will work fine in most cases, but will break if someone on that server decides to rename the channel. This may also give you unexpected results, due to Discord allowing multiple channels to have the same name.
+1. Set up a database table to store the channel ID in a column when someone uses a `!welcome-channel #channel-name` command, for example. Then inside the `guildMemberAdd` event, use `client.channels.cache.get('id')` and send a message to that channel. This is the most reliable method and gives server staff freedom to rename the channel as they please.
+2. Make a new command that creates a `welcome-messages` channel, use `guild.channels.cache.find(channel => channel.name === 'welcome-messages')`, and send a message to that channel. This method will work fine in most cases, but will break if someone on that server decides to rename the channel. This may also give you unexpected results, due to Discord allowing multiple channels to have the same name.
 
 ::: tip
 Not sure how to set up a database? Check out [this page](/sequelize/)!
@@ -872,7 +891,7 @@ Not sure how to set up a database? Check out [this page](/sequelize/)!
 
 #### Guild#emojis
 
-`guild.emojis` has been transformed in the shape of a DataStore.
+`guild.emojis` has been transformed in the shape of a Manager.
 
 #### Guild#fetchBans
 
@@ -885,7 +904,7 @@ Not sure how to set up a database? Check out [this page](/sequelize/)!
 
 #### Guild#fetchMember(s)
 
-`guild.fetchMember()` and `guild.fetchMembers()` were both removed and transformed in the shape of DataStores. In addition, `guild.members.fetch()` will return a `Collection` of `GuildMember` objects in v12, whereas v11 would return a `Guild` object.
+`guild.fetchMember()` and `guild.fetchMembers()` were both removed and transformed in the shape of Managers. In addition, `guild.members.fetch()` will return a `Collection` of `GuildMember` objects in v12, whereas v11 would return a `Guild` object.
 
 ```diff
 - guild.fetchMember('123456789012345678');
@@ -925,11 +944,11 @@ Not sure how to set up a database? Check out [this page](/sequelize/)!
 
 #### Guild#presences
 
-`guild.presences` is now a DataStore instead of a Collection.
+`guild.presences` is now a Manager instead of a Collection.
 
 #### Guild#pruneMembers
 
-`guild.pruneMembers()` has been transformed in the shape of a DataStore.  In addition, the first, second, and third parameters in the method have been changed or removed, leaving it with a total of one parameter. The `days`, `dry`, and `reason` parameters from v11 have been merged into an object as the first parameter.
+`guild.pruneMembers()` has been transformed in the shape of a Manager.  In addition, the first, second, and third parameters in the method have been changed or removed, leaving it with a total of one parameter. The `days`, `dry`, and `reason` parameters from v11 have been merged into an object as the first parameter.
 
 ```diff
 - guild.pruneMembers(7, true, 'Scheduled pruning');
@@ -938,7 +957,7 @@ Not sure how to set up a database? Check out [this page](/sequelize/)!
 
 #### Guild#roles
 
-`guild.roles` is now a DataStore instead of a Collection.
+`guild.roles` is now a Manager instead of a Collection.
 
 #### Guild#search
 
@@ -987,7 +1006,7 @@ Not sure how to set up a database? Check out [this page](/sequelize/)!
 
 #### Guild#unban
 
-`guild.unban()` has been transformed in the shape of a DataStore and is now a method on `GuildMemberStore`.  In addition, it also now optionally accepts a string as a second parameter for `reason`.
+`guild.unban()` has been transformed in the shape of a Manager and is now a method on `GuildMemberManager`.  In addition, it also now optionally accepts a string as a second parameter for `reason`.
 
 ```diff
 - guild.unban('123456789012345678');
@@ -1012,7 +1031,7 @@ The first, second, third, and fourth parameters in `channel.clone()` have been c
 
 #### GuildChannel#createInvite
 
-The second parameter in `channel.createInvite()` has been removed, leaving it with a total of one parameter. The `reason` parameter from v11 have been merged into an object as the first parameter.
+The second parameter in `channel.createInvite()` has been removed, leaving it with a total of one parameter. The `reason` parameter from v11 has been merged into an object as the first parameter.
 
 ```diff
 - channel.createInvite({ temporary: true }, 'Just testing');
@@ -1052,7 +1071,7 @@ The second parameter in `channel.setPosition()` has been changed. The `relative`
 
 #### GuildMember\*\*\*Role(s)
 
-All of the methods to modify a member's roles have been moved to the `GuildMemberRoleStore`.
+All of the methods to modify a member's roles have been moved to the `GuildMemberRoleManager`.
 
 ```diff
 - guildMember.addRole('123456789012345678');
@@ -1071,7 +1090,7 @@ All of the methods to modify a member's roles have been moved to the `GuildMembe
 
 #### GuildMember#ban
 
-`guildMember.ban()` has been transformed in the shape of a DataStore and is now a method on `GuildMemberStore`. The second parameter has been changed from a string or an object to only accept an object.  The `reason` and `days` parameters are keys in the `options` object.
+`guildMember.ban()` has been transformed in the shape of a Manager and is now a method on `GuildMemberManager`. The second parameter has been changed from a string or an object to only accept an object.  The `reason` and `days` parameters are keys in the `options` object.
 
 ```diff
 - member.ban(user, 7);
@@ -1083,7 +1102,7 @@ All of the methods to modify a member's roles have been moved to the `GuildMembe
 
 #### GuildMember#\*\*\*Role
 
-`guildMember.colorRole`, `guildMember.highestRole` and `guildMember.hoistRole` have all been moved to the `GuildMemberRoleStore` DataStore.
+`guildMember.colorRole`, `guildMember.highestRole` and `guildMember.hoistRole` have all been moved to the `GuildMemberRoleManager`.
 
 ```diff
 - guildMember.colorRole;
@@ -1154,7 +1173,7 @@ The `guildMember.lastMessage` property is now read-only.
 
 #### GuildMember#roles
 
-`guildMember.roles` is now a DataStore instead of a Collection.
+`guildMember.roles` is now a Manager instead of a Collection.
 
 #### GuildMember#send\*\*\*
 
@@ -1213,7 +1232,7 @@ Along with the rest of the voice-related methods and properties, the methods for
 
 #### Message#clearReactions
 
-`message.clearReactions()` has been transformed in the shape of a DataStore.
+`message.clearReactions()` has been transformed in the shape of a Manager.
 
 ```diff
 - message.clearReactions();
@@ -1302,9 +1321,17 @@ The `max` and `maxMatches` properties of the `MessageCollector` class have been 
 
 `MessageEmbed` now encompasses both the received embeds in a message and the constructor - the `RichEmbed` constructor was removed in favor of `MessageEmbed`.
 
+#### MessageEmbed#addField
+
+`messageEmbed.addField()` has been removed in favor of `messageEmbed.addFields()` that can add multiple fields per call.
+
+#### MessageEmbed#addBlankField
+
+`messageEmbed.addBlankField()` has been removed entirely. To add a blank field, use `messageEmbed.addFields()` and pass `'\u200b'` as values for the field.
+
 #### MessageEmbed#attachFiles
 
-`RichEmbed.attachFile()` is the only method that did not make the transition from v11 to v12.  The `MessageEmbed.attachFiles()` works for one or more files.
+`RichEmbed.attachFile()` has been removed in favor of `MessageEmbed.attachFiles()` method, which works for one or more files.
 
 #### MessageEmbed#client
 
@@ -1331,7 +1358,7 @@ The `max` and `maxMatches` properties of the `MessageCollector` class have been 
 
 #### MessageReaction#fetchUsers
 
-`messageReaction.fetchUsers()` has been transformed in the shape of a DataStore.  In addition, the first parameter has been removed in favor of an object.
+`messageReaction.fetchUsers()` has been transformed in the shape of a Manager.  In addition, the first parameter has been removed in favor of an object.
 
 ```diff
 - reaction.fetchUsers(50);
@@ -1340,7 +1367,7 @@ The `max` and `maxMatches` properties of the `MessageCollector` class have been 
 
 #### MessageReaction#remove
 
-`messageReaction.remove()` has been transformed in the shape of a DataStore.
+`messageReaction.remove()` has been transformed in the shape of a Manager.
 
 ```diff
 - reaction.remove();
@@ -1403,7 +1430,7 @@ The following permission flags have been renamed:
 * `EXTERNAL_EMOJIS` -> `USE_EXTERNAL_EMOJIS`
 * `MANAGE_ROLES_OR_PERMISSIONS` -> `MANAGE_ROLES`
 
-#### Permission#hasPermission(s)
+#### Permissions#hasPermission(s)
 
 `permissions.hasPermission()` and `permissions.hasPermissions()` have been removed entirely in favor of `permissions.has()`.  This change reduces extraneous helper methods.
 
@@ -1433,11 +1460,11 @@ The following permission flags have been renamed:
 
 #### Presence#game
 
-`presence.game` has been removed in favor of the `Activity` class.
+`presence.game` has been removed in favor of the `Activity` class. It is now an array of Activities.
 
 ```diff
 - presence.game;
-+ presence.activity;
++ presence.activities;
 ```
 
 ### RichEmbed
@@ -1530,7 +1557,7 @@ The `death` and `spawn` events for a shard can also include a `Worker` in additi
 
 #### Shard#spawn
 
-The parameters in v11 have been removed and replaced with a single, optional parameter, `spawnTimeout`.
+The parameters used in v11 have been removed and replaced with a single, optional parameter, `spawnTimeout`.
 
 ### ShardClientUtil
 
@@ -1690,7 +1717,7 @@ All the `.send***()` methods have been removed in favor of one general `.send()`
 
 #### TextChannel#fetch(Pinned)Message(s)
 
-`channel.fetchMessage()`, `channel.fetchMessages()`, and `channel.fetchPinnedMessages()` were all removed and transformed in the shape of DataStores.
+`channel.fetchMessage()`, `channel.fetchMessages()`, and `channel.fetchPinnedMessages()` were all removed and transformed in the shape of Managers.
 
 ```diff
 - channel.fetchMessage('123456789012345678');
@@ -1796,11 +1823,11 @@ This event has been removed from the `VoiceBroadcast` class and is implemented f
 
 #### VoiceBroadcast#error
 
-This event has been removed from the `VoiceBroadcast` class to the `BroadcastDispatcher` class.
+This event has been moved from the `VoiceBroadcast` class to the `BroadcastDispatcher` class.
 
 #### VoiceBroadcast#pause
 
-This method has been removed from the `VoiceBroadcast` class to the `BroadcastDispatcher` class.
+This method has been moved from the `VoiceBroadcast` class to the `BroadcastDispatcher` class.
 
 #### VoiceBroadcast#play\*\*\*
 
@@ -1812,7 +1839,7 @@ This property has been removed entirely.
 
 #### VoiceBroadcast#resume
 
-This method has been removed from the `VoiceBroadcast` class to the `BroadcastDispatcher` class.
+This method has been moved from the `VoiceBroadcast` class to the `BroadcastDispatcher` class.
 
 #### VoiceBroadcast#warn
 
@@ -1999,22 +2026,22 @@ ClientApplication.coverImage({ width: 1024, height: 1024 });
 
 `collectorOptions.dispose` has been added to allow for deleted data to be removed from the collection.
 
-### DataStore
+### Manager
 
-The DataStore class was added in order to store various data types. Uses include
-- RoleStore
-- UserStore
-- GuildStore
-- ChannelStore
-- MessageStore
-- PresenceStore
-- ReactionStore
-- GuildEmojiStore
-- GuildMemberStore
-- GuildChannelStore
-- ReactionUserStore
-- GuildEmojiRoleStore
-- GuildMemberRoleStore
+The Manager class was added in order to store various data types. Uses include
+- RoleManager
+- UserManager
+- GuildManager
+- ChannelManager
+- MessageManager
+- PresenceManager
+- ReactionManager
+- GuildEmojiManager
+- GuildMemberManager
+- GuildChannelManager
+- ReactionUserManager
+- GuildEmojiRoleManager
+- GuildMemberRoleManager
 
 ### DiscordAPIError
 
