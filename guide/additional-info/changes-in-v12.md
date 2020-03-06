@@ -12,7 +12,7 @@ title: v11からv12へのアップデート
 After a long time in development, Discord.js v12 is nearing a stable release, meaning it's time to update from v11 to get new features for your bots!  However, with those new features comes a lot of changes to the library that will break code written for v11.  This guide will serve as a handy reference for updating your code, covering the most commonly-used methods that have been changed, new topics such as partials and internal sharding, and will also include a comprehensive list of the method and property changes at the end.
 -->
 
-長期間の開発の末、Discord.js v12は安定したリリースに近づいています。つまり、v11から更新してボットで新しい機能を使うときです！しかし追加された新機能と同時に、v11向けに書かれたコードを壊すライブラリへの多くの変更があります。このガイドは、コードを更新するための便利なリファレンスとして機能し、変更された最もよく使用されるメソッドや、パーシャル、内部シャーディングなどの新しいトピックをカバーします。最後にメソッドとプロパティの変更の包括的なリストも含まれます。
+長期間の開発の末、Discord.js v12は正式にリリースされました。つまり、v11から更新してボットで新しい機能を使うときです！しかし追加された新機能と同時に、v11向けに書かれたコードを壊すライブラリへの多くの変更があります。このガイドは、コードを更新するための便利なリファレンスとして機能し、変更された最もよく使用されるメソッドや、パーシャル、内部シャーディングなどの新しいトピックをカバーします。最後にメソッドとプロパティの変更の包括的なリストも含まれます。
 
 <!--
 ## Before You Start
@@ -21,16 +21,22 @@ After a long time in development, Discord.js v12 is nearing a stable release, me
 ## 始める前に
 
 <!--
-v12 requires Node 12.x or higher to  use, so make sure you're up-to-date.  To check your Node version, use `node -v` in your terminal or command prompt, and if it's not high enough, update it!  There are many resources online to help you get up-to-date.
+v12 requires Node 12.x or higher to  use, so make sure you're up-to-date.  To check your Node version, use `node -v` in your terminal or command prompt, and if it's not high enough, update it!  There are many resources online to help you with this step based on your host system.
 -->
 
-v12を使用するにはNode 12.x以降が必要です。最新の状態であることを確認してください。Nodeのバージョンを確認するには、ターミナルまたはコマンドプロンプトで`node -v`を使用します。v12以降ではない場合は更新してください。最新情報を得るための情報がネット上に多くあります。
+v12を使用するにはNode 12.x以降が必要です。最新の状態であることを確認してください。Nodeのバージョンを確認するには、ターミナルまたはコマンドプロンプトで`node -v`を使用します。v12以降ではない場合は更新してください。使用しているOSごとにこれを手助けする情報がネット上に多くあります。
 
 <!--
-For now, you do need Git installed and added to your PATH environment, so ensure that's done as well - again, guides are available online for a wide variety of operating systems.  Once you have Node up-to-date and Git installed, you can install v12 by running `npm install discord.js` in your terminal or command prompt for text-only use, or `npm install discord.js @discordjs/opus` for voice support.
+Once you got Node up-to-date you can install v12 by running `npm install discord.js` in your terminal or command prompt for text-only use, or `npm install discord.js @discordjs/opus` for voice support.
 -->
 
-まず、GitをインストールしてPATH環境に追加する必要があるので、それも確実に行ってください。ここでも、さまざまなOSのガイドがオンラインで入手できます。Nodeを最新にしてGitをインストールしたら、ターミナルまたはコマンドプロンプトで`npm install discord.js`を実行してテキストのみを使用するか、音声サポート用に`npm install discord.js @discordjs/opus`を実行してv12をインストールできます。
+Nodeを最新にしたら、ターミナルまたはコマンドプロンプトで`npm install discord.js`を実行してテキストのみを使用するか、音声サポート用に`npm install discord.js @discordjs/opus`を実行してv12をインストールできます。
+
+<!--
+You can check your discord.js version with `npm list discord.js`. Should it still show v11.x uninstall (`npm uninstall discord.js`) and re-install discord.js and make sure the entry in your package.json does not prevent a major version update. Please refer to the [npm documentation](https://docs.npmjs.com/files/package.json#dependencies) for this.
+-->
+
+インストールされたdiscord.jsのバージョンは`npm list discord.js`で確認できます。それでもv11.xが表示される場合はdiscord.jsを一度アンインストールし(`npm uninstall discord.js`)、再びインストールすることで、package.jsonの指定がメジャーバージョンの更新を妨げていないことを確認してください。詳しくは[npm documentation](https://docs.npmjs.com/files/package.json#dependencies)を参照してください。
 
 <!--
 ## Commonly Used Methods That Changed
@@ -46,7 +52,7 @@ For now, you do need Git installed and added to your PATH environment, so ensure
 
 * すべての節の見出しには、`Class#methodOrProperty`という規則に従って名前が付けられます。
 * 括弧の使用は、オプションを含むことを表します。例えば`Channel#fetch(Pinned)Message(s)`は、その節に`Channel#fetchPinnedMessages`、`Channel#fetchMessages`、および`Channel#fetchMessage`の変更が含まれることを意味します。
-* アスタリスクの使用はワイルドカードを示します。例えば`Channel#send***`は、このセクションに`Channel#sendMessage`や`Channel#sendFile`、`Channel#sendEmbed`などの変更が含まれることを意味します。
+* アスタリスクはワイルドカードを示します。例えば`Channel#send***`は、このセクションに`Channel#sendMessage`や`Channel#sendFile`、`Channel#sendEmbed`などの変更が含まれることを意味します。
 
 <!--
 ### Managers/ Cache
@@ -298,11 +304,10 @@ user.avatarURL({ format: 'png', dynamic: true, size: 1024 });
 ### RichEmbedコンストラクター
 
 <!--
-The RichEmbed constructor has been removed and now the `MessageEmbed` constructor is used. It is largely the same to use, the only differences being the removal of `RichEmbed.attachFile()` - `MessageEmbed.attachFiles()` accepts a single file as a parameter as well, and removing `RichEmbed.addField()` and `RichEmbed.addBlankField()` methods in favor of `MessageEmbed.addFields()` which can add multiple fields in one call.
+The RichEmbed constructor has been removed and now the `MessageEmbed` constructor is used. It is largely the same to use, the only differences being the removal of `richEmbed.attachFile` (`messageEmbed.attachFiles` accepts a single file as a parameter as well) and `richEmbed.addBlankField` and the addition of `messageEmbed.addFields`.
 -->
 
-RichEmbedコンストラクターが削除され、`MessageEmbed`コンストラクターが使用されるようになりました。使用方法はほとんど同じですが、違いは`RichEmbed.attachFile()`の代わりにパラメーターとして単一のファイルも受け入れる`MessageEmbed.attachFiles()`、`RichEmbed.addField()`と`RichEmbed.addBlankField()`メソッドの代わりに
-1回の呼び出しで複数のフィールドを追加できる`MessageEmbed.addFields()`が追加されました。
+RichEmbedコンストラクターが削除され、`MessageEmbed`コンストラクターが使用されるようになりました。使用方法はほとんど同じですが、違いは`richEmbed.attachFile`と`richEmbed.addBlankField`が削除され、代わりに`messageEmbed.addFields`が追加されました。（`messageEmbed.attachFiles`はパラメーターとして単一のファイルも受け入れます）
 
 ### String Concatenation
 
@@ -478,18 +483,7 @@ Broadcasts themselves now contain a `BroadcastDispatcher` that shares a similar 
 + broadcast.subscribers
 ```
 
-<!--
-
----
-::: danger
-This stuff should keep getting shoved to the bottom, with the commonly-used methods that are changed, as well as topic overviews added before it.
-:::
--->
-
----
-::: danger
-このようなものは、一般的に使用されるメソッドの変更や、追加されたトピックの概要の下にあるべきです。
-:::
+## Breaking Changes and Deletions
 
 <!--
 The section headers for breaking changes will be named after the v11 classes/methods/properties and will be in alphabetical order, so that you can easily find what you're looking for. The section headers for additions will be named after the v12 classes/methods/properties, to reflect their current syntax appropriately.
@@ -498,22 +492,20 @@ The section headers for breaking changes will be named after the v11 classes/met
 破壊的な変更の節の見出しは、v11のクラス/メソッド/プロパティにちなんで名前が付けられ、アルファベット順になっているため、探しているものを簡単に見つけることができます。追加の節ヘッダーには、現在の構文を適切に反映するために、v12クラス/メソッド/プロパティにちなんで名前が付けられます。
 
 <!--
-"Difference" codeblocks will be used to display the old methods vs the newer ones—the red being what's been removed and the green being its replacement. Some bits may have more than one version of being handled. Regular JavaScript syntax codeblocks will be used to display the additions. 
+"Difference" code blocks will be used to display the old methods vs the newer ones—the red being what's been removed and the green being its replacement. Some bits may have more than one version of being handled. Regular JavaScript syntax code blocks will be used to display the additions. 
 -->
 
 「差分」コードブロックは、古いメソッドと新しいメソッドを表示するために使用されます。赤は削除されたもので、緑はその代替です。一部には、処理されるバージョンが複数ある場合があります。反対に追加は、通常のJavaScript構文コードブロックが使用されます。
 
 <!--
 ::: danger
-While this list has been carefully crafted, it may be incomplete! If you notice pieces of missing or inaccurate data, we encourage you to [submit a pull request](https://github.com/Danktuary/Making-Bots-with-Discord.js)!
+While this list has been carefully crafted, it may be incomplete! If you notice pieces of missing or inaccurate data, we encourage you to [submit a pull request](https://github.com/discordjs/guide/compare)!
 :::
 -->
 
 ::: danger
-このリストは慎重に作成されていますが、不完全な場合があります！データの欠落や不正確な部分に気付いた場合は、[プルリクエストを送信する](https://github.com/Danktuary/Making-Bots-with-Discord.js)ことをお勧めします！
+このリストは慎重に作成されていますが、不完全な場合があります！データの欠落や不正確な部分に気付いた場合は、[プルリクエストを送信する](https://github.com/discordjs/guide/compare)ことをお勧めします！
 :::
-
-## Breaking Changes and Deletions
 
 Stuff that has gone through and updated - anything under Additions at the end will still likely need descriptions:
 
@@ -578,10 +570,6 @@ Any voice-related classes may change at any time, as they're still actively bein
 * WebhookClient [(changes)](/additional-info/changes-in-v12.md#webhookclient)
 * WebSocketManager [(additions)](/additional-info/changes-in-v12.md#websocketmanager)
 * WebSocketShard [(additions)](/additional-info/changes-in-v12.md#websocketshard)
-
-Stuff Mark didn't do:
-
-* MessageAttachment
 
 ### Dependencies
 
@@ -1541,13 +1529,9 @@ The `max` and `maxMatches` properties of the `MessageCollector` class have been 
 
 `MessageEmbed` now encompasses both the received embeds in a message and the constructor - the `RichEmbed` constructor was removed in favor of `MessageEmbed`.
 
-#### MessageEmbed#addField
-
-`messageEmbed.addField()` has been removed in favor of `messageEmbed.addFields()` that can add multiple fields per call.
-
 #### MessageEmbed#addBlankField
 
-`messageEmbed.addBlankField()` has been removed entirely. To add a blank field, use `messageEmbed.addFields()` and pass `'\u200b'` as values for the field.
+`messageEmbed.addBlankField()` has been removed entirely. To add a blank field, use `messageEmbed.addField('\u200b', '\u200b', false)`.
 
 #### MessageEmbed#attachFiles
 
@@ -2368,6 +2352,10 @@ channel.updateOverwrite(message.author, {
 `attachment.setName()` has been added.
 
 ### MessageEmbed
+
+#### MessageEmbed#addFields
+
+`MessageEmbed.addFields` has been added to add multiple fields at once (note: Fields have to be passed as EmbedFieldData)
 
 #### MessageEmbed#files
 
