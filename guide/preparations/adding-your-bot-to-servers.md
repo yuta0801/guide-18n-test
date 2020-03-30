@@ -12,7 +12,7 @@ The basic version of one such link looks like this:
 https://discordapp.com/oauth2/authorize?client_id=123456789012345678&scope=bot
 ```
 
-The structure of the url is very simple:
+The structure of the url is quite simple:
 
 * The first part is just Discord's standard structure for authorizing an OAuth2 application (such as your bot application) for entry to a Discord server.
 * The second part that says `client_id=...` is to specify _which_ application you want to authorize. You'll need to replace this part with your client's ID in order to create a valid invite link. 
