@@ -183,6 +183,7 @@ All the `.send***()` methods have been removed in favor of one general `.send()`
 		attachment: 'entire/path/to/file.jpg',
 		name: 'file.jpg'
 	}]
+});
 + channel.send({
 	files: ['https://cdn.discordapp.com/icons/222078108977594368/6e1019b3179d71046e463a75915e7244.png?size=2048']
 });
@@ -617,6 +618,10 @@ The `client.clientUserGuildSettingsUpdate` event has been removed entirely, alon
 
 The `client.clientUserSettingsUpdate` event has been removed entirely, along with all other user account-only properties and methods.
 
+#### Client#destroy
+
+The `client.destroy()` method no longer returns a Promise.
+
 #### Client#disconnect
 
 The `client.disconnect` event has been removed in favor of the `client.shardDisconnected` event to make use of internal sharding.
@@ -659,6 +664,15 @@ The `speaking` parameter has been changed from a `boolean` value to a read-only 
 #### Client#presences
 
 `client.presences` has been removed to reduce extraneous getters.
+
+#### Client#presenceUpdate
+
+The `client.presenceUpdate` has been changed and now passes the old and new `Presence` rather than the `GuildMember`.
+
+```diff
+- client.on('presenceUpdate', (oldMember, newMember) =>
++ client.on('presenceUpdate', (oldPresence, newPresence) =>
+```
 
 #### Client#reconnecting
 
@@ -1400,6 +1414,9 @@ Along with the rest of the voice-related methods and properties, the methods for
 
 - guildMember.setVoiceChannel('123456789012345678');
 + guildMember.voice.setChannel('123456789012345678');
+
+- guildMember.setVoiceChannel(null);
++ guildMember.voice.kick();
 ```
 
 #### GuildMember#speaking
@@ -1531,7 +1548,7 @@ The `max` and `maxMatches` properties of the `MessageCollector` class have been 
 
 #### MessageEmbed#addBlankField
 
-`messageEmbed.addBlankField()` has been removed entirely. To add a blank field, use `messageEmbed.addField('\u200b', '\u200b', false)`.
+`messageEmbed.addBlankField()` has been removed entirely. To add a blank field, use `messageEmbed.addField('\u200b', '\u200b')`.
 
 #### MessageEmbed#attachFiles
 
