@@ -1,10 +1,10 @@
-# Adding your bot to servers
+# ボットをサーバーに追加する
 
-If you've been diligently following the previous pages of the guide, you should have a bot application set up. However, it's not in any servers yet. So how does that work?
+ここまで熱心に読んできたのなら、ボットのセットアップを終えているでしょう。 しかし、まだサーバーにボットはいません。 So how does that work?
 
 Before you're actually able to see your bot in your own (or other) servers, it needs to be added using a special invite link that can be created using your bot application's client ID.
 
-## Bot invite links
+## ボットの招待リンク
 
 The basic version of one such link looks like this:
 
@@ -12,7 +12,7 @@ The basic version of one such link looks like this:
 https://discordapp.com/oauth2/authorize?client_id=123456789012345678&scope=bot
 ```
 
-The structure of the url is very simple:
+このURLの構造は非常にシンプルになっています。
 
 * The first part is just Discord's standard structure for authorizing an OAuth2 application (such as your bot application) for entry to a Discord server.
 * The second part that says `client_id=...` is to specify _which_ application you want to authorize. You'll need to replace this part with your client's ID in order to create a valid invite link.
