@@ -1,0 +1,5 @@
+files:
+  - source: guide/**/*.md
+    ignore:
+      - '%two_letters_code%'
+    translation: /guide/%two_letters_code%/**/%original_file_name%
