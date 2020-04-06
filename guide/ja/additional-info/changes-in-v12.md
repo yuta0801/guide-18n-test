@@ -549,7 +549,8 @@ While this list has been carefully crafted, it may be incomplete! If you notice 
 :::
 -->
 
-::: danger このリストは慎重に作成されていますが、不完全な場合があります！データの欠落や不正確な部分に気付いた場合は、[プルリクエストを送信する](https://github.com/discordjs/guide/compare)ことをお勧めします！ :::
+::: danger このリストは慎重に作成されていますが、不完全な場合があります！データの欠落や不正確な部分に気付いた場合は、[プルリクエストを送信する](https://github.com/discordjs/guide/compare)ことをお勧めします！
+:::
 
 Stuff that has gone through and updated - anything under Additions at the end will still likely need descriptions:
 
@@ -1150,7 +1151,9 @@ Unfortunately, "default" channels don't exist in Discord anymore, and as such, t
 1. Set up a database table to store the channel ID in a column when someone uses a `!welcome-channel #channel-name` command, for example. Then inside the `guildMemberAdd` event, use `client.channels.cache.get('id')` and send a message to that channel. This is the most reliable method and gives server staff freedom to rename the channel as they please.
 2. Make a new command that creates a `welcome-messages` channel, use `guild.channels.cache.find(channel => channel.name === 'welcome-messages')`, and send a message to that channel. This method will work fine in most cases, but will break if someone on that server decides to rename the channel. This may also give you unexpected results, due to Discord allowing multiple channels to have the same name.
 
-::: tip Not sure how to set up a database? Check out [this page](/sequelize/)! :::
+::: tip
+Not sure how to set up a database? Check out [this page](/sequelize/)!
+:::
 
 #### Guild#emojis
 
@@ -1949,7 +1952,9 @@ All the `.send***()` methods have been removed in favor of one general `.send()`
 + channel.send({ embed: embedVariable });
 ```
 
-::: warning `channel.send(embedVariable)` will only work if that variable is an instance of the `MessageEmbed` class; object literals won't give you the expected result unless your embed data is inside an `embed` key. :::
+::: warning
+`channel.send(embedVariable)` will only work if that variable is an instance of the `MessageEmbed` class; object literals won't give you the expected result unless your embed data is inside an `embed` key.
+:::
 
 ```diff
 - channel.sendCode('js', 'const version = 11;');
@@ -2192,7 +2197,9 @@ The `WebhookClient` class now extends `BaseClient` and implements `Webhook` inst
 
 ## Additions
 
-::: warning Remember to add examples for the additions. :::
+::: warning
+Remember to add examples for the additions.
+:::
 
 ### Activity
 
