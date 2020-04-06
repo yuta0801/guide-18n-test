@@ -68,7 +68,9 @@ client.login('your-token-goes-here');
 ```
 </branch>
 
-::: tip We're going to take advantage of [destructuring](/additional-info/es6-syntax.md#destructuring) in this tutorial to maintain readability. :::
+::: tip
+We're going to take advantage of [destructuring](/additional-info/es6-syntax.md#destructuring) in this tutorial to maintain readability.
+:::
 
 ## Using node-fetch
 
@@ -108,7 +110,9 @@ So, here's what's happening in this code:
 4. node-fetch recieves the response and deserializes it with `reponse.json()`.
 5. You then send the object's `file` property in Discord.
 
-::: warning The response will only be parsed if the server's `Content-Type` header includes `application/json`. In some cases you may have to apply the `.text()` method instead of `.json()` and `JSON.parse()` it yourself. :::
+::: warning
+The response will only be parsed if the server's `Content-Type` header includes `application/json`. In some cases you may have to apply the `.text()` method instead of `.json()` and `JSON.parse()` it yourself.
+:::
 
 ### Urban Dictionary
 
