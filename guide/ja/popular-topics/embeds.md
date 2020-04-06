@@ -52,7 +52,9 @@ Discord.js features the utility class <branch version="11.x" inline>[RichEmbed](
 
 <branch version="11.x">
 
-::: warning On the master branch, the receiving and outgoing embed classes have been unified; you will need to use `Discord.MessageEmbed()` as constructor instead. :::
+::: warning
+On the master branch, the receiving and outgoing embed classes have been unified; you will need to use `Discord.MessageEmbed()` as constructor instead.
+:::
 
 ```js
 // at the top of your file
@@ -109,7 +111,9 @@ channel.send(exampleEmbed);
 
 </branch>
 
-::: tip You don't need to include all the elements showcased above. If you want a simpler embed, just leave some out. :::
+::: tip
+You don't need to include all the elements showcased above. If you want a simpler embed, just leave some out.
+:::
 
 The `.setColor()` method accepts an integer, HEX color string, an array of RGB values or specific color strings. You can find a list of them at <branch version="11.x" inline>[the Discord.js documentation](https://discord.js.org/#/docs/main/11.5.1/typedef/ColorResolvable)</branch><branch version="12.x" inline>[the Discord.js documentation](https://discord.js.org/#/docs/main/master/typedef/ColorResolvable)</branch>.
 
@@ -155,7 +159,9 @@ You can use the `.attachFiles()` method to upload images alongside your embed an
 
 You can then reference and use the images inside the embed itself with `attachment://fileName.extension`.
 
-::: tip If you plan to attach the same image over and over consider hosting it online and just provide the URL in the respective embed field instead. This also makes your bot respond much faster, since it doesn't need to upload the image with every response depending on it. :::
+::: tip
+If you plan to attach the same image over and over consider hosting it online and just provide the URL in the respective embed field instead. This also makes your bot respond much faster, since it doesn't need to upload the image with every response depending on it.
+:::
 
 <branch version="11.x">
 
@@ -182,7 +188,9 @@ channel.send(exampleEmbed);
 
 </branch>
 
-::: warning If the images doesn't display inside the embed but outside of it, double check your syntax to make sure it's as shown above. :::
+::: warning
+If the images doesn't display inside the embed but outside of it, double check your syntax to make sure it's as shown above.
+:::
 
 ## Using an embed object
 
@@ -239,11 +247,15 @@ const exampleEmbed = {
 channel.send({ embed: exampleEmbed });
 ```
 
-::: tip You don't need to include all the elements showcased above. If you want a simpler embed, just leave some out. :::
+::: tip
+You don't need to include all the elements showcased above. If you want a simpler embed, just leave some out.
+:::
 
 <branch version="11.x">
 
-::: warning The `color` field has to be an integer for embed objects! If you have a hex color string (e.g. `'#7289da'`) you can replace the `#` with `0x` to use it as a number: `0x7289da`. :::
+::: warning
+The `color` field has to be an integer for embed objects! If you have a hex color string (e.g. `'#7289da'`) you can replace the `#` with `0x` to use it as a number: `0x7289da`.
+:::
 
 </branch>
 
@@ -263,7 +275,9 @@ You can upload images with your embedded message and use them as source for embe
 
 You can then reference and use the images inside the embed itself with `attachment://fileName.extension`.
 
-::: tip If you plan to attach the same image over and over consider hosting it online and just provide the URL in the respective embed field instead. This also makes your bot respond much faster, since it doesn't need to upload the image with every response depending on it. :::
+::: tip
+If you plan to attach the same image over and over consider hosting it online and just provide the URL in the respective embed field instead. This also makes your bot respond much faster, since it doesn't need to upload the image with every response depending on it.
+:::
 
 <branch version="11.x">
 
@@ -298,7 +312,9 @@ channel.send({ files: [file], embed: exampleEmbed });
 
 </branch>
 
-::: warning If the images doesn't display inside the embed but outside of it, double check your syntax to make sure it's as shown above. :::
+::: warning
+If the images doesn't display inside the embed but outside of it, double check your syntax to make sure it's as shown above.
+:::
 
 ## Resending and editing
 
@@ -308,7 +324,9 @@ We will now explain how to edit embedded message content and resend a received e
 
 To forward a received embed you retrieve it from the messages embed array (`message.embeds`) and pass it to the <branch version="11.x" inline>RichEmbed</branch><branch version="12.x" inline>MessageEmbed</branch> constructor. The constructed <branch version="11.x" inline>RichEmbed</branch><branch version="12.x" inline>MessageEmbed</branch> can then be edited before sending it again.
 
-::: warning <branch version="11.x" inline>You can not resend the received embed structure! The MessageEmbed returned from `message.embeds` contains circular structures and needs to be converted to a RichEmbed object before sending.</branch><branch version="12.x" inline>We deliberately create a new Embed here instead of just modifying `message.embeds[0]` directly to keep the cache valid. If we were to not do this the embed in cache on the original message would diverge from what the actual embed looks like, which can result in unexpected behavior down the line!</branch> :::
+::: warning
+<branch version="11.x" inline>You can not resend the received embed structure! The MessageEmbed returned from `message.embeds` contains circular structures and needs to be converted to a RichEmbed object before sending.</branch><branch version="12.x" inline>We deliberately create a new Embed here instead of just modifying `message.embeds[0]` directly to keep the cache valid. If we were to not do this the embed in cache on the original message would diverge from what the actual embed looks like, which can result in unexpected behavior down the line!</branch>
+:::
 
 <branch version="11.x">
 
