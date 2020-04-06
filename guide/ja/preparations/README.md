@@ -71,7 +71,9 @@ If you _do_ have Node installed, but have an older version \(i.e. anything below
 :::
 -->
 
-::: warning すでにNodeがインストールされていても、古いバージョン（<branch version="11.x" inline>8.0.0</branch><branch version="12.x" inline>12.0</branch>以下）の場合は、最新のバージョンにアップグレードしてください。<branch version="11.x" inline>Discord.js v11</branch><branch version="12.x" inline> Discord.js v12</branch>はNode <branch version="11.x" inline>8.0.0</branch><branch version="12.x" inline>10.2.0</branch>以上が必要です。 :::
+::: warning
+すでにNodeがインストールされていても、古いバージョン（<branch version="11.x" inline>8.0.0</branch><branch version="12.x" inline>12.0</branch>以下）の場合は、最新のバージョンにアップグレードしてください。<branch version="11.x" inline>Discord.js v11</branch><branch version="12.x" inline> Discord.js v12</branch>はNode <branch version="11.x" inline>8.0.0</branch><branch version="12.x" inline>10.2.0</branch>以上が必要です。
+:::
 
 ---
 
@@ -191,7 +193,9 @@ Want to get started quickly? Use `npm init -y` to have it fill out everything fo
 :::
 -->
 
-::: tip すばやく始めたいときは、`npm init -y`を使用して、すべてを自動で記入してもらうことができます！ :::
+::: tip
+すばやく始めたいときは、`npm init -y`を使用して、すべてを自動で記入してもらうことができます！
+:::
 
 
 <!--
@@ -232,7 +236,9 @@ Once the installation is complete, you'll see something like this:
 :::
 -->
 
-::: warning インストールが完了すると、次のようになります。 ![npm warnings](~@/images/BbcuyJ6.png)<br/> **これは完全に正常であり、正しく動作したことを意味します。** discord.jsを使用するために表示されている項目をインストールする必要はありません。それらは完全にオプションです。 :::
+::: warning
+インストールが完了すると、次のようになります。 ![npm warnings](~@/images/BbcuyJ6.png)<br/> **これは完全に正常であり、正しく動作したことを意味します。** discord.jsを使用するために表示されている項目をインストールする必要はありません。それらは完全にオプションです。
+:::
 
 
 <!--
