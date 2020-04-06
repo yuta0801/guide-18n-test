@@ -5,7 +5,9 @@ Audit logs are a great moderation tool offered by discord to know what happened 
 
 There are quite a few cases where audit logs may be used, this guide will limit itself to the most common use cases. For more information on audit logs, feel free to consult the [relevant discord api page](https://discordapp.com/developers/docs/resources/audit-log).
 
-::: warning It is crucial that you first understand two details about audit logs: 1) They are not guaranteed to arrive when you expect them (if at all). 2) There is no event which triggers when an audit log is created. :::
+::: warning
+It is crucial that you first understand two details about audit logs: 1) They are not guaranteed to arrive when you expect them (if at all). 2) There is no event which triggers when an audit log is created.
+:::
 
 Let us start by looking quickly at the `fetchAuditLogs` method and how we want to work with it. Similarly to many djs methods, it returns a promise containing what we really want, the GuildAuditLogs object. In most cases, only the `entries` property will be of interest, as that is where a collection of GuildAuditLogsEntry objects are held, and consequently the information we usually want. You can always take a look at the options [in the djs docs](https://discord.js.org/#/docs/main/stable/class/Guild?scrollTo=fetchAuditLogs).
 
@@ -14,7 +16,9 @@ In the following examples, a very simple case for some auditLog types will be ex
 ## Who Deleted a Message?
 Let us dive right into it with probably the most common use of audit logs; understanding who deleted any given message in a discord server.
 
-::: warning At the moment of writing this, discord does not emit an audit log if the person who deleted the message is a bot deleting a single message, or is the author of the message itself. :::
+::: warning
+At the moment of writing this, discord does not emit an audit log if the person who deleted the message is a bot deleting a single message, or is the author of the message itself.
+:::
 
 For now we will look only at the `messageDelete` event. Let us start off with defining a basic trial code for this task.
 
