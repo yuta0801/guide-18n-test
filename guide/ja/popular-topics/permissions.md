@@ -44,7 +44,9 @@ To include permission checks like `ADMINISTRATOR` or `MANAGE_GUILD`, keep readin
 * Base Permissions: Permissions for roles the member has, set on the guild level
 * Final Permissions: Permissions for a member or role, after all overwrites are applied
 
-::: tip You can provide permission decimals wherever we use flag literals in this guide. If you are interested in a handy permission calculator you can look at the "Bot" section in the [Discord developer portal](https://discordapp.com/developers/applications). :::
+::: tip
+You can provide permission decimals wherever we use flag literals in this guide. If you are interested in a handy permission calculator you can look at the "Bot" section in the [Discord developer portal](https://discordapp.com/developers/applications).
+:::
 
 ## Base permissions
 
@@ -69,7 +71,9 @@ guild.roles.everyone.setPermissions(['SEND_MESSAGES', 'VIEW_CHANNEL']);
 
 Any permission not referenced in the flag array or bit field are not granted to the role.
 
-::: tip Note that flag names are literal. Although `VIEW_CHANNEL` grants access to view multiple channels the permission flag is still called `VIEW_CHANNEL` in singular. :::
+::: tip
+Note that flag names are literal. Although `VIEW_CHANNEL` grants access to view multiple channels the permission flag is still called `VIEW_CHANNEL` in singular.
+:::
 
 ### Creating a role with permissions
 
@@ -184,7 +188,9 @@ guild.createChannel('new-channel', {
 });
 ```
 
-::: warning These objects are [ChannelCreationOverwrites](https://discord.js.org/#/docs/main/11.5.1/typedef/ChannelCreationOverwrites) and differ from [PermissionOverwriteOptions](https://discord.js.org/#/docs/main/11.5.1/typedef/PermissionOverwriteOptions); be careful to not mix them up! :::
+::: warning
+These objects are [ChannelCreationOverwrites](https://discord.js.org/#/docs/main/11.5.1/typedef/ChannelCreationOverwrites) and differ from [PermissionOverwriteOptions](https://discord.js.org/#/docs/main/11.5.1/typedef/PermissionOverwriteOptions); be careful to not mix them up!
+:::
 
 </branch>
 <branch version="12.x">
@@ -307,7 +313,9 @@ const botPermissionsIn = guild.me.permissionsIn(channel);
 const rolePermissions = channel.permissionsFor(role);
 ```
 
-::: warning The `.permissionsFor()` and `.permissionsIn()` methods return a <branch version="11.x" inline>bit field</branch><branch version="12.x" inline>Permissions object</branch> with all permissions set if the member or role has the global `ADMINISTRATOR` permission and does not take overwrites into consideration in this case. Using the second parameter of the `.has()` method as described further down in the guide will not allow you to check without taking `ADMINISTRATOR` into account here! :::
+::: warning
+The `.permissionsFor()` and `.permissionsIn()` methods return a <branch version="11.x" inline>bit field</branch><branch version="12.x" inline>Permissions object</branch> with all permissions set if the member or role has the global `ADMINISTRATOR` permission and does not take overwrites into consideration in this case. Using the second parameter of the `.has()` method as described further down in the guide will not allow you to check without taking `ADMINISTRATOR` into account here!
+:::
 
 If you want to know how to work with the returned Permissions objects keep reading as this will be our next topic.
 
@@ -408,7 +416,9 @@ You can utilize these methods to adapt permissions or overwrites without touchin
 
 <branch version="11.x">
 
-::: tip The expression `role.permissions` returns a number which needs to be converted to a Permissions object for this to work as described here. We covered how to achieve this in the section "[Converting permission numbers to Objects](/popular-topics/permissions.md#converting-permission-numbers)" :::
+::: tip
+The expression `role.permissions` returns a number which needs to be converted to a Permissions object for this to work as described here. We covered how to achieve this in the section "[Converting permission numbers to Objects](/popular-topics/permissions.md#converting-permission-numbers)"
+:::
 
 </branch>
 
