@@ -21,7 +21,8 @@ $ npm install --save sequelize
 $ npm install --save sqlite3
 ```
 
-::: danger Make sure you use version 5 or later of Sequelize! Version 4 as used in this guide will pose a security threat. You can read more about this issue On the [Sequelize issue tracker](https://github.com/sequelize/sequelize/issues/7310). :::
+::: danger Make sure you use version 5 or later of Sequelize! Version 4 as used in this guide will pose a security threat. You can read more about this issue On the [Sequelize issue tracker](https://github.com/sequelize/sequelize/issues/7310).
+:::
 
 After you have installed discord.js and Sequelize, you can start with the following skeleton code. The comment labels will tell you where to insert code lateron.
 
@@ -127,7 +128,9 @@ The model mirrors very closely to what is defined in the database. There will be
 `defaultValue` allows you to set a fallback value if no value is set during the insert.  
 `allowNull` is not all that important, but this will guarantee in the database that the attribute is never unset. You could potentially set it to be a blank or empty string, but has to be set to _something_.
 
-::: tip `Sequelize.STRING` vs `Sequelize.TEXT`: In most database systems, the length of the string is a fixed length for performance reasons. Sequelize defaults this to 255. Use STRING if your input has a max length, and use TEXT if does not. For sqlite, there is no unbounded string type so it will not matter which one you pick. :::
+::: tip
+`Sequelize.STRING` vs `Sequelize.TEXT`: In most database systems, the length of the string is a fixed length for performance reasons. Sequelize defaults this to 255. Use STRING if your input has a max length, and use TEXT if does not. For sqlite, there is no unbounded string type so it will not matter which one you pick.
+:::
 
 ### [gamma] Syncing the model
 
@@ -168,7 +171,9 @@ catch (e) {
 `catch (e)` This section is necessary for the insert. This will offload checking for duplicates to the database, so that it will notify you if you attempt to create a tag that already exists. The alternative is to query the database before adding data, and checking if a result is returned. If there are no errors, or no identical tag is found, only then should you add the data. Of the two methods it is clear that catching the error is less work for yourself.  
 `if (e.name === "SequelizeUniqueConstraintError")` Although this was mostly for doing less work, it is always good to handle your errors, especially if you know what types of errors you will receive. This error comes up if your unique constraint is violated, i.e. someone inserted duplicate values.
 
-::: warning Do not use catch for inserting new data. Only use it for gracefully handling things that go wrong in your code, or logging errors. :::
+::: warning
+Do not use catch for inserting new data. Only use it for gracefully handling things that go wrong in your code, or logging errors.
+:::
 
 ### [epsilon] Fetching a tag
 
