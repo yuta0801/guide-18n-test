@@ -34,7 +34,9 @@ const broadcast2 = client.voice.createBroadcast();
 
 The broadcasts created above are independent from each other; playing audio on one broadcast will not affect the other broadcast.
 
-::: tip An array of broadcasts can be accessed via `client.voice.broadcasts` - this might be useful if you're looking to stop/pause all active broadcasts. :::
+::: tip
+An array of broadcasts can be accessed via `client.voice.broadcasts` - this might be useful if you're looking to stop/pause all active broadcasts.
+:::
 
 ## Playing audio
 
