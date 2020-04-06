@@ -1,6 +1,8 @@
 # Commands with user input (a.k.a. "arguments")
 
-::: tip This page is a follow-up and bases its code off of [the previous page](/creating-your-bot/adding-more-commands.md). :::
+::: tip
+This page is a follow-up and bases its code off of [the previous page](/creating-your-bot/adding-more-commands.md).
+:::
 
 Sometimes you'll want to determine the result of a command depending on user input. It's a very common case with a very simple solution. This section will teach you how to extract user input from a message and use it in your code. Generally, you'll hear other people refer to this as "arguments", and you should refer to them as that as well.
 
@@ -164,7 +166,9 @@ if (!message.mentions.users.size) {
 }
 ```
 
-::: tip If you're wondering what `message.reply()` does, it's just an alternative for `message.channel.send()` which also prepends a mention of the person who sent the message, unless used in a DM. It can be very useful for providing feedback! :::
+::: tip
+If you're wondering what `message.reply()` does, it's just an alternative for `message.channel.send()` which also prepends a mention of the person who sent the message, unless used in a DM. It can be very useful for providing feedback!
+:::
 
 Since `message.mentions.users` is a Collection, it has a `.size` property. If no users are mentioned, it'll return 0 (which is a `falsy` value), meaning you can do `if (!value)` to check if it's falsy.
 
@@ -289,7 +293,9 @@ And ta-da! You now have a list of avatar links of all the users you tagged.
 
 It does take up a lot of screen, but this is just an example command anyway.
 
-::: tip If you're looking for a more advanced way to handle mentions as arguments you can check out [this guide](/miscellaneous/parsing-mention-arguments.md). :::
+::: tip
+If you're looking for a more advanced way to handle mentions as arguments you can check out [this guide](/miscellaneous/parsing-mention-arguments.md).
+:::
 
 ## Number ranges
 
@@ -359,7 +365,9 @@ message.channel.bulkDelete(amount, true).catch(err => {
 });
 ```
 
-::: tip If you aren't familiar with the `.catch()` method, it's used to catch errors on Promises. Unsure what Promises are? Google around for more info! :::
+::: tip
+If you aren't familiar with the `.catch()` method, it's used to catch errors on Promises. Unsure what Promises are? Google around for more info!
+:::
 
 The other caveat with this is that the `!prune {number}` message you sent will also count towards the amount deleted. What this means is that if you send `!prune 2`, it'll delete that message and only one other. There are a couple ways around this, but we'll be taking the easiest route for the sake of the tutorial. Here are the edits to make to your current code:
 
