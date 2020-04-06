@@ -6,7 +6,9 @@ Webhooks are a way of sending messages to a text channel without having to log i
 
 Webhooks are a utility used to send messages to text channels without needing a discord application. Webhooks are useful for allowing something to send messages without requiring a discord application. However, you should note that you cannot directly edit or delete messages you sent through the webhook. Discord.js introduces two structures to make use of this functionality, `Webhook` and `WebhookClient`. `WebhookClient` is an extended version of a `Webhook` which allows you to send messages through it without needing a bot client.
 
-::: tip If you would like to read about how to use webhooks through the API without discord.js, you can read about them [here](https://discordapp.com/developers/docs/resources/webhook). :::
+::: tip
+If you would like to read about how to use webhooks through the API without discord.js, you can read about them [here](https://discordapp.com/developers/docs/resources/webhook).
+:::
 
 ## Detecting webhook messages
 
@@ -20,7 +22,9 @@ If you would like to get the webhook object that sent the message, you can use <
 
 ## Fetching webhooks
 
-::: tip Webhook fetching will always make use of collections and promises, if you do not understand either concepts, revise them and then come back to this section.  You can read about collections [here](/additional-info/collections.md), and promises [here](/additional-info/async-await.md) and [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). :::
+::: tip
+Webhook fetching will always make use of collections and promises, if you do not understand either concepts, revise them and then come back to this section.  You can read about collections [here](/additional-info/collections.md), and promises [here](/additional-info/async-await.md) and [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
+:::
 
 ### Fetching all webhooks of a guild
 
