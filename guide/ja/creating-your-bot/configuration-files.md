@@ -15,7 +15,9 @@ This page is a follow-up and bases its code off of [the previous page](/creating
 :::
 -->
 
-::: tip このページは[前のページ](/creating-your-bot/)のコードをもとにして、説明しています。 :::
+::: tip
+このページは[前のページ](/creating-your-bot/)のコードをもとにして、説明しています。
+:::
 
 
 <!--

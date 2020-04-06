@@ -26,7 +26,9 @@ client.on('message', async message => {
 
 If you try to join a channel the bot is already in, nothing will happen so we don't need to worry about running this method repeatedly.
 
-::: tip In the above example we accessed a `VoiceState` through `member.voice`. A voice state exists for members connected to a voice channel, and tells you which channel they're connected to, if the member is speaking, and whether they're deafened or muted. Consult the documentation for a full description of what voice states can do! :::
+::: tip
+In the above example we accessed a `VoiceState` through `member.voice`. A voice state exists for members connected to a voice channel, and tells you which channel they're connected to, if the member is speaking, and whether they're deafened or muted. Consult the documentation for a full description of what voice states can do!
+:::
 
 ## Playing audio
 
@@ -95,7 +97,9 @@ connection.play(fs.createReadStream('audio.webm'), { type: 'webm/opus' });
 connection.play(fs.createReadStream('audio.ogg'), { type: 'ogg/opus' });
 ```
 
-::: tip You may be wondering why we specified the source `type` in this example when we didn't in the FFmpeg one. Discord.js will default to the `'unknown'` (i.e. "use FFmpeg") type when no type is provided. :::
+::: tip
+You may be wondering why we specified the source `type` in this example when we didn't in the FFmpeg one. Discord.js will default to the `'unknown'` (i.e. "use FFmpeg") type when no type is provided.
+:::
 
 ## Controlling the Stream Dispatcher
 
@@ -108,7 +112,8 @@ dispatcher.resume();
 dispatcher.setVolume(0.25);
 ```
 
-::: tip In cases where you'll be pausing/resuming a stream rapidly, you can use the _"play silence"_ mode to prevent audio glitches occurring in the Discord client. To opt-in to this mode, simply pass `true` to the pause method:
+::: tip
+In cases where you'll be pausing/resuming a stream rapidly, you can use the _"play silence"_ mode to prevent audio glitches occurring in the Discord client. To opt-in to this mode, simply pass `true` to the pause method:
 ```js
 // Play silent packets while paused
 dispatcher.pause(true);

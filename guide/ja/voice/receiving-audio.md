@@ -9,7 +9,9 @@ This voice guide is written for Discord.js v12, which features an improved audio
 </branch>
 <branch version="12.x">
 
-::: warning Discord does not officially support Discord Bots receiving audio ([see here](https://github.com/discordapp/discord-api-docs/issues/808)), so there may be some breakages. However, Discord.js aims to reasonably support this feature. :::
+::: warning
+Discord does not officially support Discord Bots receiving audio ([see here](https://github.com/discordapp/discord-api-docs/issues/808)), so there may be some breakages. However, Discord.js aims to reasonably support this feature.
+:::
 
 ## Basic Usage
 
@@ -32,7 +34,9 @@ With `'pcm'` specified, Discord.js will attempt to decode each received Opus pac
 
 Additionally, the `end` option can be specified. It defaults to `'silence'`, which ends the ReadableStream once the user stops talking. It can also be set to `'manual'`, which means the stream doesn't end until you end it yourself. Note that Discord.js will not interpolate silence into gaps in the audio (where the user has stopped speaking), this is something you will have to do yourself.
 
-::: tip To work with PCM audio, you could use software such as [Audacity.](https://www.audacityteam.org/) To import the audio into Audacity, open **File > Import > Raw Data...** and then select your audio file. You should select **Signed 16-bit PCM** as the encoding, a **Little-endian** byte order, **2 Channels (Stereo)** and a sample rate of **48000Hz**. :::
+::: tip
+To work with PCM audio, you could use software such as [Audacity.](https://www.audacityteam.org/) To import the audio into Audacity, open **File > Import > Raw Data...** and then select your audio file. You should select **Signed 16-bit PCM** as the encoding, a **Little-endian** byte order, **2 Channels (Stereo)** and a sample rate of **48000Hz**.
+:::
 
 ## Advanced Usage
 

@@ -105,7 +105,9 @@ You can install each of these directly inside the editors themselves. For Visual
 :::
 -->
 
-::: tip あなたは、これらをエディタに直接インストールすることができます。Visual Studio Codeでは`Ctrl + Shift + X`。Atomでは`Ctrl + ,`。Sublimeでは `Ctrl + Shift + P`([Package Control](https://packagecontrol.io/installation)が必要)。その後、適切な拡張機能を見つけインストールしてください。 :::
+::: tip
+あなたは、これらをエディタに直接インストールすることができます。Visual Studio Codeでは`Ctrl + Shift + X`。Atomでは`Ctrl + ,`。Sublimeでは `Ctrl + Shift + P`([Package Control](https://packagecontrol.io/installation)が必要)。その後、適切な拡張機能を見つけインストールしてください。
+:::
 
 
 <!--

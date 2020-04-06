@@ -9,7 +9,9 @@ This voice guide is written for Discord.js v12, which features an improved audio
 </branch>
 <branch version="12.x">
 
-::: tip It's common for people to get confused with voice and not understand what they're doing. **This topic is optional**, but it aims to solve these problems by explaining some of the jargon and features of the Discord API. :::
+::: tip
+It's common for people to get confused with voice and not understand what they're doing. **This topic is optional**, but it aims to solve these problems by explaining some of the jargon and features of the Discord API.
+:::
 
 ### Glossary
 - [PCM](https://en.wikipedia.org/wiki/Pulse-code_modulation) - Think of this as raw audio, it is not encoded in anything special and is used by your computer at a lower level.
@@ -42,7 +44,9 @@ In conclusion:
 
 ### Receiving audio
 
-::: warning Discord does not officially support bots receiving audio. However, Discord.js does its best to implement this anyway! :::
+::: warning
+Discord does not officially support bots receiving audio. However, Discord.js does its best to implement this anyway!
+:::
 
 Just as we send audio to the UDP socket, we also receive audio through the UDP socket. Processing this audio is the reverse process of sending audio:
 

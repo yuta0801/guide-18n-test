@@ -142,7 +142,9 @@ This is a very common error, it originates from a wrong token being passed into 
 
 <branch version="12.x">
 
-::: warning On master there used to be an issue where the token was not prefixed correctly which resulted in valid tokens being marked as invalid. If you have verified that all of the above is not the case, make sure you have updated discord.js to the latest commit. :::
+::: warning
+On master there used to be an issue where the token was not prefixed correctly which resulted in valid tokens being marked as invalid. If you have verified that all of the above is not the case, make sure you have updated discord.js to the latest commit.
+:::
 
 </branch>
 

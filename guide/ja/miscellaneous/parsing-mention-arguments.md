@@ -131,7 +131,9 @@ As you can see it is a fairly straight forward function. It essentially just wor
  2. If the user has a nickname and their mention contains a `!` remove that as well.
  3. Only the ID should be left now, so use that to fetch the user from the <branch version="11.x" inline>`client.users`</branch><branch version="12.x" inline>`client.users.cache`</branch> Collection. Whenever it encounters an error with the mention (i.e. invalid structure) it simply returns `undefined` to signal the mention is invalid.
 
-::: tip The `.slice()` method is used in a more advance way here. You can read the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice) for more info. :::
+::: tip
+The `.slice()` method is used in a more advance way here. You can read the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice) for more info.
+:::
 
 Now you have a nifty function you can use whenever you need to convert a raw mention into a proper user object. Plugging it into the command will give you this:
 
@@ -196,7 +198,9 @@ Previously you learn how to use rudimentary string related functions to turn the
 
 If you have never worked with Regular Expressions before, this might seem daunting. But in fact, you already have used regular expressions. Remember `withoutPrefix.split(/ +/);`? This little `/ +/` is actually a Regular Expression. The `/` on either side tell JavaScript where the Regular Expression begins and where it ends, the stuff inbetween is it is content.
 
-::: tip For a more detailed explanation please consult the [MDN's documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp). :::
+::: tip
+For a more detailed explanation please consult the [MDN's documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
+:::
 
 The RegEx you will use for user mentions will look like this: `/^<@!?(\d+)>$/`. Here is how the RegEx works:
 
@@ -208,7 +212,9 @@ The RegEx you will use for user mentions will look like this: `/^<@!?(\d+)>$/`. 
 
 Using the `.match()` method on strings you can get the values of the capture group, i.e., the ID of the mention.
 
-::: warning Discord.js has <branch version="11.x" inline>[built-in patterns](https://discord.js.org/#/docs/main/11.5.1/class/MessageMentions?scrollTo=s-CHANNELS_PATTERN)</branch><branch version="12.x" inline>[built-in patterns](https://discord.js.org/#/docs/main/master/class/MessageMentions?scrollTo=s-CHANNELS_PATTERN)</branch> for matching mentions, however as of version 11.4 they do not contain any groups and thus aren't useful for actually getting the ID out of the mention. :::
+::: warning
+Discord.js has <branch version="11.x" inline>[built-in patterns](https://discord.js.org/#/docs/main/11.5.1/class/MessageMentions?scrollTo=s-CHANNELS_PATTERN)</branch><branch version="12.x" inline>[built-in patterns](https://discord.js.org/#/docs/main/master/class/MessageMentions?scrollTo=s-CHANNELS_PATTERN)</branch> for matching mentions, however as of version 11.4 they do not contain any groups and thus aren't useful for actually getting the ID out of the mention.
+:::
 
 Updating your `getUserFromMention` function to use RegEx gives you this:
 
