@@ -38,8 +38,10 @@ You may also choose to install the following dependencies.
   - [`sodium`](https://www.npmjs.com/package/sodium) (best performance)
   - [`libsodium-wrappers`](https://www.npmjs.com/package/libsodium-wrappers)
 
-::: tip Outside a development environment, it is recommended for you to use `@discordjs/opus` and `sodium` to improve performance and improve the stability of audio playback!
+::: tip
+Outside a development environment, it is recommended for you to use `@discordjs/opus` and `sodium` to improve performance and improve the stability of audio playback!
 
-If you're struggling to install these dependencies, make sure you have build tools installed first. On Windows, this is as easy as running `npm install --global --production --vs2015 --add-python-to-path windows-build-tools`! :::
+If you're struggling to install these dependencies, make sure you have build tools installed first. On Windows, this is as easy as running `npm install --global --production --vs2015 --add-python-to-path windows-build-tools`!
+:::
 
 </branch>
