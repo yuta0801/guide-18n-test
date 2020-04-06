@@ -60,7 +60,9 @@ Two of the easiest ways you can retrieve an emoji would be:
 * Use `.find()` on a Collection of Emojis.
 * Use `.get()` on the <branch version="11.x" inline>`client.emojis`</branch><branch version="12.x" inline>`client.emojis.cache`</branch> Collection.
 
-::: tip It is possible for two or more emojis to have the same name, and using `.find()` will only return the **first** entry it finds. As such, this can cause unexpected results. :::
+::: tip
+It is possible for two or more emojis to have the same name, and using `.find()` will only return the **first** entry it finds. As such, this can cause unexpected results.
+:::
 
 Using `.find()`, your code would look something like this:
 
@@ -160,7 +162,9 @@ If you try again with either of the codeblocks above, you'll get the result you 
 
 ![Emojis reacting in correct order](~@/images/1IWSJ1C.png)
 
-::: tip If you aren't familiar with Promises or `async`/`await`, you can read more about them on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or [our guide page on async/await](/additional-info/async-await.md)! :::
+::: tip
+If you aren't familiar with Promises or `async`/`await`, you can read more about them on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or [our guide page on async/await](/additional-info/async-await.md)!
+:::
 
 ### Handling multiple reactions if the order doesn't matter
 
@@ -183,7 +187,9 @@ The benefit of this small optimization is that you can use `.then()` to handle w
 
 Now that you know how to add reactions, you might be asking, how do you remove them? In this section you will learn how to remove all reactions, remove reactions by user, and remove reactions by emoji.
 
-::: warning All of these methods require `MANAGE_MESSAGES` permissions. Make sure your bot has permissions before attempting to utilize any of these methods, as it will error if it doesnt. :::
+::: warning
+All of these methods require `MANAGE_MESSAGES` permissions. Make sure your bot has permissions before attempting to utilize any of these methods, as it will error if it doesnt.
+:::
 
 ### Removing all reactions
 
@@ -236,7 +242,9 @@ message.reactions.cache.get('484535447171760141').remove().catch(error => consol
 </branch>
 
 ### Removing reactions by user
-::: tip If you are not familiar with [`Collection.filter()`](https://discord.js.org/#/docs/main/stable/class/Collection?scrollTo=filter) and [`Collection.has()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/has) take the time to understand what they do and then come back. :::
+::: tip
+If you are not familiar with [`Collection.filter()`](https://discord.js.org/#/docs/main/stable/class/Collection?scrollTo=filter) and [`Collection.has()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/has) take the time to understand what they do and then come back.
+:::
 
 <branch version="11.x">
 
@@ -252,7 +260,9 @@ try {
 }
 ```
 
-::: warning Make sure not to remove reactions by emoji or by user too much, if there are a lot of reactions or a lot of users it can be considered API spam. :::
+::: warning
+Make sure not to remove reactions by emoji or by user too much, if there are a lot of reactions or a lot of users it can be considered API spam.
+:::
 
 </branch>
 <branch version="12.x">
@@ -269,7 +279,9 @@ try {
 }
 ```
 
-::: warning Make sure not to remove reactions by user too much, if there are a lot of reactions or a lot of users it can be considered API spam. :::
+::: warning
+Make sure not to remove reactions by user too much, if there are a lot of reactions or a lot of users it can be considered API spam.
+:::
 
 </branch>
 
@@ -334,7 +346,9 @@ client.on('messageReactionAdd', async (reaction, user) => {
 });
 ```
 
-:::warning Partial structures are enabled globally. You can not only make them work for a certain event or cache and you very likely need to adapt other parts of your code that are accessing data from the relevant caches. All caches holding the respective structure type might return partials as well! :::
+:::warning
+Partial structures are enabled globally. You can not only make them work for a certain event or cache and you very likely need to adapt other parts of your code that are accessing data from the relevant caches. All caches holding the respective structure type might return partials as well!
+:::
 
 </branch>
 
