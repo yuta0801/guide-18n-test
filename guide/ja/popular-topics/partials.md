@@ -23,15 +23,21 @@ You choose which structures you want to emit as partials as client options when 
 const { Client } = require('discord.js');
 const client = new Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 ```
-:::tip Make sure you enable all partials you need for your use case! If you miss one the event does not get emitted. For example listening for reactions on uncached Messages in a direct message channel requires both `MESSAGE`, `CHANNEL` and `REACTION`! If you miss `CHANNEL` as enabled partial type reactions on uncached messages in servers will be emitted (as guild channels are always cached) but will not do so for direct messages. :::
+:::tip
+Make sure you enable all partials you need for your use case! If you miss one the event does not get emitted. For example listening for reactions on uncached Messages in a direct message channel requires both `MESSAGE`, `CHANNEL` and `REACTION`! If you miss `CHANNEL` as enabled partial type reactions on uncached messages in servers will be emitted (as guild channels are always cached) but will not do so for direct messages.
+:::
 
-:::warning Partial structures are enabled globally. You can not make them work for only a certain event or cache and you very likely need to adapt other parts of your code that are accessing data from the relevant caches. All caches holding the respective structure type might return partials as well! :::
+:::warning
+Partial structures are enabled globally. You can not make them work for only a certain event or cache and you very likely need to adapt other parts of your code that are accessing data from the relevant caches. All caches holding the respective structure type might return partials as well!
+:::
 
 ## Handling Partial data
 
 All structures you can choose to use partials for have a new property, fittingly called `.partial` indicating if it is a fully functional or partial instance of its class. The value is `true` if partial, `false` if fully functional.
 
-:::warning Partial data is only ever guaranteed to contain an ID! Do not assume any property or method to work when dealing with a partial structure! :::
+:::warning
+Partial data is only ever guaranteed to contain an ID! Do not assume any property or method to work when dealing with a partial structure!
+:::
 
 ```js
 if (message.partial) {
@@ -60,7 +66,9 @@ if (message.partial) {
 }
 ```
 
-:::warning You can not fetch data from the API that's already deleted. For message deletions `messageDelete` will only emit with the ID, which you can not use to fetch the complete message containing content, author or other information for, as it is already inaccessible by the time you receive the event. :::
+:::warning
+You can not fetch data from the API that's already deleted. For message deletions `messageDelete` will only emit with the ID, which you can not use to fetch the complete message containing content, author or other information for, as it is already inaccessible by the time you receive the event.
+:::
 
 
 </branch>
