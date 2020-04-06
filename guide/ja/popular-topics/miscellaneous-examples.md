@@ -1,6 +1,8 @@
 # Miscellaneous examples
 
-::: tip For more, even shorter code examples, check out [the common questions page](/popular-topics/common-questions.md)! :::
+::: tip
+For more, even shorter code examples, check out [the common questions page](/popular-topics/common-questions.md)!
+:::
 
 ## Play music from YouTube
 
@@ -137,9 +139,13 @@ client.on('message', message => {
 client.login('your-token-goes-here');
 ```
 
-::: tip The `escapeRegex` function is used to convert special characters into literal characters by escaping them, so that they don't terminate the pattern within the [Regular Expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)! :::
+::: tip
+The `escapeRegex` function is used to convert special characters into literal characters by escaping them, so that they don't terminate the pattern within the [Regular Expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)!
+:::
 
-::: tip If you aren't familiar with the syntax used on the `const [, matchedPrefix] = ...` line, that's called "array destructuring". Feel free to read more about it in the [ES6 syntax](/additional-info/es6-syntax.md#array-destructuring) guide! :::
+::: tip
+If you aren't familiar with the syntax used on the `const [, matchedPrefix] = ...` line, that's called "array destructuring". Feel free to read more about it in the [ES6 syntax](/additional-info/es6-syntax.md#array-destructuring) guide!
+:::
 
 ## Emoji characters
 
@@ -171,4 +177,6 @@ console.log(emojiCharacters[10]); // 🔟
 console.log(emojiCharacters['!']); // ❗
 ```
 
-::: tip On Windows, you may be able to use the `Win + .` keyboard shortcut to open up an emoji picker can be used for quick, easy access to all the unicode emojis available to you. Some of the emojis listed above may not be there, though (e.g the 0-9 emojis). :::
+::: tip
+On Windows, you may be able to use the `Win + .` keyboard shortcut to open up an emoji picker can be used for quick, easy access to all the unicode emojis available to you. Some of the emojis listed above may not be there, though (e.g the 0-9 emojis).
+:::
