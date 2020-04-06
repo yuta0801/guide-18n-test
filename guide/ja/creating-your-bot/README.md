@@ -43,7 +43,9 @@ You can quickly create a new file by using the `Ctrl + N` shortcut on your keybo
 :::
 -->
 
-::: tip キーボードの`Ctrl + N`を押すことで素早く新規ファイルを作成、`Ctrl + S`を押すことでファイルを保存できます。 :::
+::: tip
+キーボードの`Ctrl + N`を押すことで素早く新規ファイルを作成、`Ctrl + S`を押すことでファイルを保存できます。
+:::
 
 
 <!--
@@ -98,7 +100,9 @@ Don't feel like typing the file name each time? Open up your `package.json` file
 :::
 -->
 
-::: tip 毎回のようにファイル名を入力したくないですよね？`package.json`ファイルを開き、`"main": "index.js"`のような記述を探し、`"index.js"`をあなたのファイル名に変更してください。保存したあとはコンソールで`node .`を実行することで簡略化できます。 :::
+::: tip
+毎回のようにファイル名を入力したくないですよね？`package.json`ファイルを開き、`"main": "index.js"`のような記述を探し、`"index.js"`をあなたのファイル名に変更してください。保存したあとはコンソールで`node .`を実行することで簡略化できます。
+:::
 
 
 <!--
@@ -192,7 +196,9 @@ Inside your console, you can press the up arrow on your keyboard to bring up the
 :::
 -->
 
-::: tip コンソール内でキーボードの上矢印キーを押すと最後に実行したコマンドが現れます。処理を止めた後に`Up`を押してから`Enter`を押すのは、もう１度実行するのに素早い方法です。（つまり毎回コマンドを打たずに済みます） :::
+::: tip
+コンソール内でキーボードの上矢印キーを押すと最後に実行したコマンドが現れます。処理を止めた後に`Up`を押してから`Enter`を押すのは、もう１度実行するのに素早い方法です。（つまり毎回コマンドを打たずに済みます）
+:::
 
 
 <!--
