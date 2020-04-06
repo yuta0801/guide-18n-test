@@ -4,9 +4,13 @@
 
 Canvas is an image manipulation tool that allows you to modify images with code. We'll explore how to use this module in a heavily requested feature: guild member welcome messages. But first, you must go through the intense labor of installing Canvas. It's highly recommended that you use a Linux distribution for this because it'll be much easier to install on.
 
-::: tip This guide is last tested with `canvas^2.6.0`, so make sure you have this or a similar version after installation. :::
+::: tip
+This guide is last tested with `canvas^2.6.0`, so make sure you have this or a similar version after installation.
+:::
 
-::: warning Be sure that you're familiar with things like [async/await](/additional-info/async-await.md) and [object destructuring](/additional-info/es6-syntax.md#object-destructuring) before continuing, as we'll be making use of features like these. :::
+::: warning
+Be sure that you're familiar with things like [async/await](/additional-info/async-await.md) and [object destructuring](/additional-info/es6-syntax.md#object-destructuring) before continuing, as we'll be making use of features like these.
+:::
 
 ## Installation
 
@@ -107,7 +111,9 @@ What this will do is trigger the `guildMemberAdd` event while passing in the mes
 
 The end goal will be to display the user's avatar, username, and a simple "Welcome!" message when they join. After importing the Canvas module and initializing it, you should load the images. With Canvas, you have to specify where the image comes from first, naturally, and then specify how it gets loaded into the actual Canvas using `ctx`, which is what you will use to interact with Canvas.
 
-::: tip `node-canvas` works almost identical to HTML5 Canvas. You can read the HTML5 Canvas tutorials on [w3Schools](https://www.w3schools.com/html/html5_canvas.asp) and [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) for more information later! :::
+::: tip
+`node-canvas` works almost identical to HTML5 Canvas. You can read the HTML5 Canvas tutorials on [w3Schools](https://www.w3schools.com/html/html5_canvas.asp) and [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) for more information later!
+:::
 
 <branch version="11.x">
 
@@ -195,7 +201,9 @@ client.on('guildMemberAdd', async member => {
 
 ![Basic canvas preview](~@/images/8CQvVRV.png)
 
-::: tip If you get an error such as `Error: error while reading from input stream`, then the provided path to the file was incorrect. :::
+::: tip
+If you get an error such as `Error: error while reading from input stream`, then the provided path to the file was incorrect.
+:::
 
 ### Manipulating images
 
@@ -451,7 +459,9 @@ client.on('guildMemberAdd', async member => {
 
 ![Image](~@/images/r6CiT3M.png)
 
-::: tip You can read more about `ctx.arc()` on [w3schools](https://www.w3schools.com/tags/canvas_arc.asp) or [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc). :::
+::: tip
+You can read more about `ctx.arc()` on [w3schools](https://www.w3schools.com/tags/canvas_arc.asp) or [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc).
+:::
 
 ### Adding in text
 
@@ -536,7 +546,9 @@ client.on('guildMemberAdd', async member => {
 
 ![Image](~@/images/3rLGb1s.png)
 
-::: tip If you get an error like `Fontconfig error: Cannot load default config file`, it means you do not have any fonts installed on your system. On Linux, you can run the following command to fix this: `sudo apt-get install fontconfig`. This might also need to be installed if you see boxes where the text should be. As for Windows, you will need to find a way to install fonts. :::
+::: tip
+If you get an error like `Fontconfig error: Cannot load default config file`, it means you do not have any fonts installed on your system. On Linux, you can run the following command to fix this: `sudo apt-get install fontconfig`. This might also need to be installed if you see boxes where the text should be. As for Windows, you will need to find a way to install fonts.
+:::
 
 You may have noticed or considered that if a member's username is too long, then the output won't be quite nice. This is because the text overflows out of the canvas, and you don't have any measures in place for that. Let's take care of this issue!
 
