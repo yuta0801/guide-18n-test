@@ -2834,10 +2834,10 @@ eslint-config-sora@^2.0.0:
   resolved "https://registry.yarnpkg.com/eslint-config-sora/-/eslint-config-sora-2.1.1.tgz#0d47799431985e0aed2f3e94b2bac2c5e5230a2e"
   integrity sha512-wKdXuAKwLjABBfZfVJBLmK/VcTldJlIe/Z5AY8s/hRxh5XlhoY9CSH3LeqJPOEkAvGFL+tFgHnxlneUSmLKGOQ==
 
-eslint-plugin-markdown@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-markdown/-/eslint-plugin-markdown-1.0.1.tgz#9705786310f84dad9cf800bea1eb5c4acafcc13a"
-  integrity sha512-nAUURNHJGPooBMZMP23FmTbh3LTdgoSqeFBv9FA3fYrJ+vDUJxrp6nKiQF4iDNAmnWQnmnrDvV61BmIF4X9QAQ==
+eslint-plugin-markdown@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-markdown/-/eslint-plugin-markdown-1.0.2.tgz#79274bf17ce3ead48e4a55cbcb6d7ce735754280"
+  integrity sha512-BfvXKsO0K+zvdarNc801jsE/NTLmig4oKhZ1U3aSUgTf2dB/US5+CrfGxMsCK2Ki1vS1R3HPok+uYpufFndhzw==
   dependencies:
     object-assign "^4.0.1"
     remark-parse "^5.0.0"
